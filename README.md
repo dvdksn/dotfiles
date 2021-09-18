@@ -1,12 +1,6 @@
-# dotfiles
+# Welcome to my dotfiles
 
-old line
+This is my config for neovim and kitty primarily.
 
-Same old line
-Nothing new here
-
-Lorem ipsu
-
-Deleted content,
-where did it go? 
+WIP (always)
 
