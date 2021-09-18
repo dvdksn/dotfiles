@@ -41,7 +41,8 @@ local on_attach = function(client, bufnr)
   local map = vim.api.nvim_set_keymap
   local opts = { noremap=true, silent=true }
   map('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  map('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- map('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  map('n', 'gd', '<Cmd>lua require"lspsaga.provider".preview_definition()<CR>', opts)
   map('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)

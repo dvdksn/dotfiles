@@ -26,9 +26,7 @@ b.textwidth=72
 vim.opt.shortmess:append({ c = true })
 
 cmd [[autocmd filetype plugin indent on]]
-cmd [[autocmd Filetype json setlocal ts=2 sw=2 expandtab]]
-cmd [[autocmd Filetype html setlocal ts=2 sw=2 expandtab]]
-cmd [[autocmd Filetype svelte setlocal ts=2 sw=2 expandtab]]
+cmd [[autocmd Filetype * setlocal ts=2 sw=2 expandtab]]
 
 -- VimPlug 
 cmd [[
@@ -55,6 +53,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/vim-vsnip'
+  Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 ]]
 
@@ -66,7 +65,10 @@ cmd [[colorscheme tokyonight]]
 require("gitsigns").setup()
 require("nvim-autopairs").setup{}
 require("surround").setup{}
-require("lspsaga").init_lsp_saga()
+require("lspsaga").init_lsp_saga{
+  max_preview_lines = 20,
+  border_style = "round"
+}
 
 require("maps")
 require("plugins/lualine")

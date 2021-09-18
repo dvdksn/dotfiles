@@ -119,4 +119,4 @@ alias icat="kitty +kitten icat"
 alias d="kitty +kitten diff"
 alias gdk="git difftool --no-symlinks --dir-diff"
 
-export DEV="${HOME}/dev"
+export DEV="${HOME}/Development"
