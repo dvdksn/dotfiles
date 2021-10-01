@@ -54,6 +54,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/vim-vsnip'
   Plug 'rafamadriz/friendly-snippets'
+  Plug 'towolf/vim-helm'
+  Plug 'ellisonleao/glow.nvim'
+  Plug 'kabouzeid/nvim-lspinstall'
 call plug#end()
 ]]
 
