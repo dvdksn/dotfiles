@@ -57,6 +57,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'towolf/vim-helm'
   Plug 'ellisonleao/glow.nvim'
   Plug 'kabouzeid/nvim-lspinstall'
+  Plug 'ray-x/go.nvim'
 call plug#end()
 ]]
 
@@ -72,6 +73,10 @@ require("lspsaga").init_lsp_saga{
   max_preview_lines = 20,
   border_style = "round"
 }
+require('go').setup()
+vim.api.nvim_exec([[autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()]], false)
+vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').gofmt() ]], false)
+vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
 
 require("maps")
 require("plugins/lualine")
