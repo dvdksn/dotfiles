@@ -2,6 +2,7 @@
 
 local g = vim.g
 local map = vim.api.nvim_set_keymap
+
 -- Settings
 require("nvim-tree").setup{
   update_focused_file = {
@@ -10,6 +11,7 @@ require("nvim-tree").setup{
   disable_netrw = true,
   update_cwd = true,
   view = {
+    width = "25%",
     auto_resize = true
   }
 }
