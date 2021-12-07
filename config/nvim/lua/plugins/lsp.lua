@@ -1,5 +1,6 @@
+
 -- lua/plugins/lsp.lua
-local lspinstall = require("lspinstall")
+local lsp_installer = require("nvim-lsp-installer")
 
 -- Prevent inline buffer annotations
 vim.lsp.diagnostic.show_line_diagnostics()
@@ -54,60 +55,46 @@ local on_attach = function(client, bufnr)
   map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
-local function setup_servers()
-  lspinstall.setup()
-  local servers = lspinstall.installed_servers()
-  for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{
-      flags = { debounce_text_changes = 150 },
-      on_attach = on_attach,
-      lsp_settings[server]
-    }
-  end
-end
+-- LSPs to install:
+--
+--     "bash",
+--     "css",
+--     "dockerfile",
+--     "go",
+--     "graphql",
+--     "html",
+--     "json",
+--     "lua",
+--     "python",
+--     "svelte",
+--     "typescript",
+--     "yaml",
 
--- install these servers by default
-local function install_servers()
-  local required_servers = {
-    "bash",
-    "css",
-    "dockerfile",
-    "go",
-    "graphql",
-    "html",
-    "json",
-    "lua",
-    "python",
-    "svelte",
-    "typescript",
-    "yaml",
-  }
-  local installed_servers = lspinstall.installed_servers()
-  for _, server in pairs(required_servers) do
-    if not vim.tbl_contains(installed_servers, server) then
-      lspinstall.install_server(server)
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
+    opts.on_attach = on_attach
+
+    -- Customize the options passed to the server
+    if server.name == "cssls" then
+      opts.capabilities = capabilities
     end
-  end
-end
 
-install_servers()
-setup_servers()
+    if server.name == "html" then
+      opts.capabilities = capabilities
+    end
 
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+    if server.name == "jsonls" then
+      flags = { debounce_text_changes = 150 }
+      opts.capabilities = capabilities
+      opts.commands = {
+        Format = {
+          function()
+            vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
+          end
+        }
+      }
+    end
 
--- for name, settings in pairs(servers) do
---   if type(settings) == "function" then
---     opts()
---   else
---     local client = require("lspconfig")[name]
---     client.setup {
---       flags = { debounce_text_changes = 150 },
---       on_attach = on_attach,
---       settings
---     }
---   end
--- end
+    server:setup(opts)
+end)
+

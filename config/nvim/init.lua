@@ -28,7 +28,7 @@ vim.opt.shortmess:append({ c = true })
 cmd [[autocmd filetype plugin indent on]]
 cmd [[autocmd Filetype * setlocal ts=2 sw=2 expandtab]]
 
--- VimPlug 
+-- VimPlug
 cmd [[
 call plug#begin('~/.vim/plugged')
   Plug 'hoob3rt/lualine.nvim'
@@ -56,7 +56,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'rafamadriz/friendly-snippets'
   Plug 'towolf/vim-helm'
   Plug 'ellisonleao/glow.nvim'
-  Plug 'kabouzeid/nvim-lspinstall'
+  Plug 'williamboman/nvim-lsp-installer'
   Plug 'ray-x/go.nvim'
 call plug#end()
 ]]
@@ -74,9 +74,8 @@ require("lspsaga").init_lsp_saga{
   border_style = "round"
 }
 require('go').setup()
-vim.api.nvim_exec([[autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()]], false)
-vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').gofmt() ]], false)
 vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
+vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').gofmt() ]], false)
 
 require("maps")
 require("plugins/lualine")

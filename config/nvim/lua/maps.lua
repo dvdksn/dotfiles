@@ -24,5 +24,6 @@ map("", "k", "(v:count == 0 ? 'gk' : 'k')", { noremap = true, silent = true, exp
 map("v", "<leader>y", "*y", { noremap = true })
 map("v", "<leader>p", "*p", { noremap = true })
 
--- Unbind F1 help
+-- Unbinds
 map("", "<F1>", "<nop>", {})
+map("", "q", "<nop>", { noremap = true })
