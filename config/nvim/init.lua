@@ -52,12 +52,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'glepnir/lspsaga.nvim'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/vim-vsnip'
-  Plug 'rafamadriz/friendly-snippets'
-  Plug 'towolf/vim-helm'
   Plug 'ellisonleao/glow.nvim'
   Plug 'williamboman/nvim-lsp-installer'
-  Plug 'ray-x/go.nvim'
 call plug#end()
 ]]
 
@@ -73,9 +69,6 @@ require("lspsaga").init_lsp_saga{
   max_preview_lines = 20,
   border_style = "round"
 }
-require('go').setup()
-vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
-vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').gofmt() ]], false)
 
 require("maps")
 require("plugins/lualine")
