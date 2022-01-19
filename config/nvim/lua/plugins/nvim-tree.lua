@@ -11,7 +11,7 @@ require("nvim-tree").setup{
   disable_netrw = true,
   update_cwd = true,
   view = {
-    width = "25%",
+    width = "15%",
     auto_resize = true
   }
 }
