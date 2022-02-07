@@ -28,47 +28,39 @@ vim.opt.shortmess:append({ c = true })
 cmd [[autocmd filetype plugin indent on]]
 cmd [[autocmd Filetype * setlocal ts=2 sw=2 expandtab]]
 
--- VimPlug
-cmd [[
-call plug#begin('~/.vim/plugged')
-  Plug 'hoob3rt/lualine.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'kyazdani42/nvim-tree.lua'
-  Plug 'romgrk/barbar.nvim'
-  Plug 'blackcauldron7/surround.nvim'
-  Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-  Plug 'nvim-lua/popup.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'mattn/emmet-vim'
-  Plug 'lukas-reineke/indent-blankline.nvim'
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'folke/trouble.nvim'
-  Plug 'windwp/nvim-autopairs'
-  Plug 'windwp/nvim-ts-autotag'
-  Plug 'yamatsum/nvim-cursorline'
-  Plug 'glepnir/lspsaga.nvim'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'ellisonleao/glow.nvim'
-  Plug 'williamboman/nvim-lsp-installer'
-call plug#end()
-]]
+require('packer').startup(function(use)
+  use 'wbthomason/packer.nvim'
+  use 'hoob3rt/lualine.nvim'
+  use 'kyazdani42/nvim-web-devicons'
+  use 'kyazdani42/nvim-tree.lua'
+  use 'romgrk/barbar.nvim'
+  use { 'blackcauldron7/surround.nvim', config = function() require('surround').setup{} end }
+  use { 'folke/tokyonight.nvim', branch = 'main' }
+  use 'nvim-lua/popup.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'nvim-telescope/telescope.nvim'
+  use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
+  use 'mattn/emmet-vim'
+  use 'lukas-reineke/indent-blankline.nvim'
+  use 'neovim/nvim-lspconfig'
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use 'folke/trouble.nvim'
+  use { 'tami5/lspsaga.nvim', config = function() require('lspsaga').init_lsp_saga{
+    max_preview_lines = 20,
+    border_style = 'round'
+  } end }
+  use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup{} end }
+  use 'windwp/nvim-ts-autotag'
+  use 'yamatsum/nvim-cursorline'
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'ellisonleao/glow.nvim'
+  use 'williamboman/nvim-lsp-installer'
+end)
 
 -- Color scheme:
 g.tokyonight_dark_sidebar = false
 cmd [[colorscheme tokyonight]]
-
--- Plugin initializaiton
-require("gitsigns").setup()
-require("nvim-autopairs").setup{}
-require("surround").setup{}
-require("lspsaga").init_lsp_saga{
-  max_preview_lines = 20,
-  border_style = "round"
-}
 
 require("maps")
 require("plugins/lualine")

@@ -3,7 +3,7 @@
 local lsp_installer = require("nvim-lsp-installer")
 
 -- Prevent inline buffer annotations
-vim.lsp.diagnostic.show_line_diagnostics()
+vim.diagnostic.open_float()
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
 })
@@ -12,27 +12,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local lsp_settings = {
-  cssls = {
-    capabilities = capabilities,
-  },
-  html = {
-    capabilities = capabilities,
-  },
-  jsonls = {
-    capabilities = capabilities,
-    commands = {
-      Format = {
-        function()
-          vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
-        end
-      }
-    }
-  },
-}
-
 -- Generic on_attach
-local on_attach = function(client, bufnr)
+local on_attach = function()
   local map = vim.api.nvim_set_keymap
   local opts = { noremap=true, silent=true }
   map('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -49,8 +30,8 @@ local on_attach = function(client, bufnr)
   map('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   map('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  map('n', '<leader>b', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  map('n', '<leader>w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  map('n', '<leader>b', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  map('n', '<leader>w', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   map('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
@@ -84,7 +65,7 @@ lsp_installer.on_server_ready(function(server)
     end
 
     if server.name == "jsonls" then
-      flags = { debounce_text_changes = 150 }
+      opts.flags = { debounce_text_changes = 150 }
       opts.capabilities = capabilities
       opts.commands = {
         Format = {
@@ -92,6 +73,16 @@ lsp_installer.on_server_ready(function(server)
             vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
           end
         }
+      }
+    end
+
+    if server.name == "sumneko_lua" then
+      opts.settings = {
+      Lua = {
+        diagnostics = {
+          globals = { 'vim' }
+        }
+      }
       }
     end
 

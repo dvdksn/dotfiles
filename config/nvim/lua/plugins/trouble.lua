@@ -1,6 +1,6 @@
 -- lua/plugins/trouble.lua
 
-map = vim.api.nvim_set_keymap
+local map = vim.api.nvim_set_keymap
 
 require("trouble").setup{
     position = "bottom", -- position of the list can be: bottom, top, left, right

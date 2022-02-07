@@ -1,6 +1,5 @@
 -- lua/plugin/nvim-tree.lua
 
-local g = vim.g
 local map = vim.api.nvim_set_keymap
 
 -- Settings
