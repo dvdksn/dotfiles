@@ -103,6 +103,10 @@ alias vim="nvim"
 alias vi="nvim"
 
 alias kittyconf="vim ~/.config/kitty/kitty.conf"
+alias vimconf="vim ~/.config/nvim/init.lua"
+alias vimcd="cd ~/.config/nvim"
+
+alias loremd="curl https://jaspervdj.be/lorem-markdownum/markdown.txt"
 
 export BROWSER=/usr/bin/firefox-developer-edition
 
@@ -110,13 +114,17 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Golang environment setup
-export PATH=$PATH:$(go env GOPATH)/bin
-export GOPATH=$(go env GOPATH)
-
 # Kitty aliases
 alias icat="kitty +kitten icat"
 alias d="kitty +kitten diff"
 alias gdk="git difftool --no-symlinks --dir-diff"
 
 export DEV="${HOME}/Development"
+
+# Generic aliases
+alias py="python"
+
+# Go setup
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$(go env GOPATH)/bin
+export GOPATH=$(go env GOPATH)

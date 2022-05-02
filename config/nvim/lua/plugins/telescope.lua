@@ -1,4 +1,4 @@
--- lua/plugin/telescope.lua
+-- Search/fuzzy finder
 
 -- Mappings
 local map = vim.api.nvim_set_keymap
