@@ -25,11 +25,10 @@ g.nobackup = true
 g.nowritebackup = true
 b.textwidth = 72
 vim.opt.shortmess:append({ c = true })
+-- w.colorcolumn = 80
 
 cmd([[autocmd filetype plugin indent on]])
 cmd([[autocmd Filetype * setlocal ts=2 sw=2 expandtab]])
-
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
