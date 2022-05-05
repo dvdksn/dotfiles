@@ -5,7 +5,6 @@ local b = vim.bo
 local cmd = vim.cmd
 
 g.mapleader = ","
-g.shell = "/usr/bin/zsh -i"
 w.number = true
 b.autoindent = true
 b.smartindent = true
@@ -25,7 +24,6 @@ g.nobackup = true
 g.nowritebackup = true
 b.textwidth = 72
 vim.opt.shortmess:append({ c = true })
--- w.colorcolumn = 80
 
 cmd([[autocmd filetype plugin indent on]])
 cmd([[autocmd Filetype * setlocal ts=2 sw=2 expandtab]])
@@ -57,7 +55,7 @@ require("packer").startup(function(use)
 				max_preview_lines = 10,
 				border_style = "round",
 				code_action_prompt = {
-					virtual_text = false,
+					virtual_text = true,
 				},
 			})
 		end,
@@ -80,6 +78,7 @@ require("packer").startup(function(use)
 			require("null-ls").setup({
 				sources = {
 					require("null-ls").builtins.formatting.stylua,
+					require("null-ls").builtins.formatting.black,
 					require("null-ls").builtins.formatting.prettier,
 					require("null-ls").builtins.diagnostics.vale,
 				},
