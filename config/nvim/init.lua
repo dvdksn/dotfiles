@@ -85,6 +85,10 @@ require("packer").startup(function(use)
 			})
 		end,
 	})
+	use("onsails/lspkind.nvim")
+	use("L3MON4D3/LuaSnip")
+	use("hrsh7th/cmp-path")
+	use("saadparwaiz1/cmp_luasnip")
 end)
 
 -- Color scheme:
