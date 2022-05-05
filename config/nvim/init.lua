@@ -13,7 +13,6 @@ b.tabstop = 2
 b.expandtab = true
 g.smarttab = true
 g.magic = true
-o.completeopt = "menu,menuone,noinsert,noselect"
 o.termguicolors = true
 o.hidden = true
 g.encoding = "utf-8"
@@ -23,7 +22,6 @@ g.updatetime = 300
 g.nobackup = true
 g.nowritebackup = true
 b.textwidth = 72
-vim.opt.shortmess:append({ c = true })
 
 cmd([[autocmd filetype plugin indent on]])
 cmd([[autocmd Filetype * setlocal ts=2 sw=2 expandtab]])
@@ -55,7 +53,7 @@ require("packer").startup(function(use)
 				max_preview_lines = 10,
 				border_style = "round",
 				code_action_prompt = {
-					virtual_text = true,
+					virtual_text = false,
 				},
 			})
 		end,
@@ -86,7 +84,7 @@ require("packer").startup(function(use)
 		end,
 	})
 	use("onsails/lspkind.nvim")
-	use("L3MON4D3/LuaSnip")
+	use({ "L3MON4D3/LuaSnip" })
 	use("hrsh7th/cmp-path")
 	use("saadparwaiz1/cmp_luasnip")
 end)
@@ -103,4 +101,5 @@ require("plugins.statusline")
 require("plugins.tabline")
 require("plugins.telescope")
 require("plugins.tree")
+require("plugins.snippets")
 require("plugins.treesitter")
