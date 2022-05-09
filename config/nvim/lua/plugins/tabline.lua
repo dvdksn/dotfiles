@@ -1,4 +1,10 @@
--- Configuration for tabs
+-- Configuration for tabs (barbar)
+
+vim.g.bufferline = {
+	auto_hide = true, -- Do not show tabline when a single buffer is open
+	clickable = false, -- Disable mouse events for tabs
+	closable = false, -- Do not display an icon for closing with mouse
+}
 
 -- Mappings
 local map = vim.api.nvim_set_keymap

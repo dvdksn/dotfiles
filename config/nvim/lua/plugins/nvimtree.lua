@@ -26,5 +26,4 @@ require("nvim-tree").setup({
 	},
 })
 map("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true })
-map("n", "<C-f>", ":NvimTreeFindFile<CR>", { noremap = true })
 map("n", "<leader>r", ":NvimTreeRefresh<CR>", { noremap = true })

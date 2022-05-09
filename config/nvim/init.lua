@@ -16,15 +16,15 @@ g.magic = true
 o.termguicolors = true
 o.hidden = true
 g.encoding = "utf-8"
-o.cmdheight = 2
+o.cmdheight = 1
 w.signcolumn = "yes"
 g.updatetime = 300
 g.nobackup = true
 g.nowritebackup = true
 b.textwidth = 72
-
-cmd([[autocmd filetype plugin indent on]])
-cmd([[autocmd Filetype * setlocal ts=2 sw=2 expandtab]])
+o.tabstop = 4
+o.shiftwidth = 4
+o.expandtab = false
 
 require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
@@ -100,6 +100,6 @@ require("plugins.lsp")
 require("plugins.statusline")
 require("plugins.tabline")
 require("plugins.telescope")
-require("plugins.tree")
+require("plugins.nvimtree")
 require("plugins.snippets")
 require("plugins.treesitter")

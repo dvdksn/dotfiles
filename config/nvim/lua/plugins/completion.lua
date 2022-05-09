@@ -21,13 +21,25 @@ cmp.setup({
 		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-    ["<Tab>"] = cmp.config.disable,
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if luasnip.jumpable() then
+				luasnip.jump(1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
 		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<C-y>"] = cmp.mapping.confirm({ select = true }),
 	},
 	sources = {
 		{ name = "luasnip" },
@@ -51,9 +63,5 @@ cmp.setup({
 				luasnip = "[snip]",
 			},
 		}),
-	},
-
-	experimental = {
-		ghost_text = true,
 	},
 })
