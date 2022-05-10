@@ -69,7 +69,26 @@ require("packer").startup(function(use)
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-nvim-lsp")
 	use("ellisonleao/glow.nvim")
-	use("williamboman/nvim-lsp-installer")
+	use({ "williamboman/nvim-lsp-installer",
+		config = function()
+			require("nvim-lsp-installer").setup({
+				ensure_installed = {
+					"bashls",
+					"golangci_lint",
+					"gopls",
+					"gopls",
+					"html",
+					"jsonls",
+					"pyright",
+					"sumneko_lua",
+					"svelte",
+					"tsserver",
+					"yamlls",
+				},
+				automatic_installation = true,
+			})
+		end,
+	})
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		config = function()

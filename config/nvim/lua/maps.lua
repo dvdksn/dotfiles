@@ -17,3 +17,4 @@ map("", "k", "(v:count == 0 ? 'gk' : 'k')", { noremap = true, silent = true, exp
 -- Unbind help and macro keys
 map("", "<F1>", "<nop>", {})
 map("", "q", "<nop>", { noremap = true })
+
