@@ -69,38 +69,9 @@ require("packer").startup(function(use)
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-nvim-lsp")
 	use("ellisonleao/glow.nvim")
-	use({ "williamboman/nvim-lsp-installer",
-		config = function()
-			require("nvim-lsp-installer").setup({
-				ensure_installed = {
-					"bashls",
-					"golangci_lint",
-					"gopls",
-					"gopls",
-					"html",
-					"jsonls",
-					"pyright",
-					"sumneko_lua",
-					"svelte",
-					"tsserver",
-					"yamlls",
-				},
-				automatic_installation = true,
-			})
-		end,
-	})
+	use("williamboman/nvim-lsp-installer")
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
-		config = function()
-			require("null-ls").setup({
-				sources = {
-					require("null-ls").builtins.formatting.stylua,
-					require("null-ls").builtins.formatting.black,
-					require("null-ls").builtins.formatting.prettier,
-					require("null-ls").builtins.diagnostics.vale,
-				},
-			})
-		end,
 	})
 	use("onsails/lspkind.nvim")
 	use({ "L3MON4D3/LuaSnip" })

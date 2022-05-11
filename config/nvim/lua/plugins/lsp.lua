@@ -11,7 +11,7 @@ local on_attach = function()
 	local opts = { noremap = true, silent = true }
 	local map = vim.api.nvim_set_keymap
 
-	map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	map("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 	map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	map("n", "gp", '<Cmd>lua require"lspsaga.provider".preview_definition()<CR>', opts)
@@ -30,14 +30,53 @@ local on_attach = function()
 end
 
 require("nvim-lsp-installer").setup({
+	ensure_installed = {
+		"bashls",
+		"golangci_lint",
+		"gopls",
+		"html",
+		"jsonls",
+		"cssls",
+		"pyright",
+		"sumneko_lua",
+		"svelte",
+		"tsserver",
+		"yamlls",
+	},
 	automatic_installation = true,
 })
 
-lspconfig.bashls.setup({})
-lspconfig.pyright.setup({})
-lspconfig.svelte.setup({})
-lspconfig.tsserver.setup({})
-lspconfig.yamlls.setup({})
+local null_ls = require("null-ls")
+
+null_ls.setup({
+	on_attach = on_attach,
+	sources = {
+		null_ls.builtins.diagnostics.vale,
+		null_ls.builtins.formatting.prettier,
+		null_ls.builtins.formatting.black,
+	},
+})
+
+lspconfig.bashls.setup({
+	on_attach = on_attach,
+})
+lspconfig.pyright.setup({
+	on_attach = on_attach,
+})
+lspconfig.svelte.setup({
+	on_attach = on_attach,
+})
+lspconfig.tsserver.setup({
+	on_attach = function(client)
+		client.server_capabilities.document_formatting = false
+		client.server_capabilities.document_range_formatting = false
+
+		on_attach()
+	end,
+})
+lspconfig.yamlls.setup({
+	on_attach = on_attach,
+})
 
 lspconfig.gopls.setup({
 	on_attach = on_attach,
@@ -68,24 +107,31 @@ lspconfig.sumneko_lua.setup({
 })
 
 lspconfig.jsonls.setup({
-	on_attach = on_attach,
-	flags = { debounce_text_changes = 150 },
+	on_attach = function(client)
+		client.server_capabilities.document_formatting = false
+		client.server_capabilities.document_range_formatting = false
+
+		on_attach()
+	end,
 	capabilities = capabilities,
-	commands = {
-		Format = {
-			function()
-				vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-			end,
-		},
-	},
 })
 
 lspconfig.html.setup({
-	on_attach = on_attach,
+	on_attach = function(client)
+		client.server_capabilities.document_formatting = false
+		client.server_capabilities.document_range_formatting = false
+
+		on_attach()
+	end,
 	capabilities = capabilities,
 })
 
 lspconfig.cssls.setup({
-	on_attach = on_attach,
+	on_attach = function(client)
+		client.server_capabilities.document_formatting = false
+		client.server_capabilities.document_range_formatting = false
+
+		on_attach()
+	end,
 	capabilities = capabilities,
 })
