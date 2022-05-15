@@ -2,12 +2,14 @@ local map = vim.api.nvim_set_keymap
 
 -- Settings
 require("nvim-tree").setup({
-	update_cwd = true,
-	update_focused_file = {
-		enable = true,
-	},
 	diagnostics = {
 		enable = true,
+	},
+	filters = {
+		dotfiles = true,
+		custom = {
+			"^node_modules",
+		}
 	},
 	view = {
 		side = "right",

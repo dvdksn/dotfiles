@@ -8,9 +8,6 @@ g.mapleader = ","
 w.number = true
 b.autoindent = true
 b.smartindent = true
-b.shiftwidth = 2
-b.tabstop = 2
-b.expandtab = true
 g.smarttab = true
 g.magic = true
 o.termguicolors = true
@@ -22,8 +19,8 @@ g.updatetime = 300
 g.nobackup = true
 g.nowritebackup = true
 b.textwidth = 72
-o.tabstop = 4
-o.shiftwidth = 4
+o.tabstop = 2
+o.shiftwidth = 2
 o.expandtab = false
 
 require("packer").startup(function(use)
@@ -70,13 +67,12 @@ require("packer").startup(function(use)
 	use("hrsh7th/cmp-nvim-lsp")
 	use("ellisonleao/glow.nvim")
 	use("williamboman/nvim-lsp-installer")
-	use({
-		"jose-elias-alvarez/null-ls.nvim",
-	})
+	use("jose-elias-alvarez/null-ls.nvim")
 	use("onsails/lspkind.nvim")
-	use({ "L3MON4D3/LuaSnip" })
+	use("L3MON4D3/LuaSnip")
 	use("hrsh7th/cmp-path")
 	use("saadparwaiz1/cmp_luasnip")
+	use("gpanders/editorconfig.nvim")
 end)
 
 -- Color scheme:
