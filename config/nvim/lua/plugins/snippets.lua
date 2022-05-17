@@ -1,47 +1,86 @@
-local luasnip = require("luasnip")
-local snippet = luasnip.snippet
-local sn = luasnip.snippet_node
-local isn = luasnip.indent_snippet_node
-local text = luasnip.text_node
-local insert = luasnip.insert_node
-local f = luasnip.function_node
-local c = luasnip.choice_node
-local d = luasnip.dynamic_node
-local r = luasnip.restore_node
+local ls = require("luasnip")
+local s = ls.snippet
+local sn = ls.snippet_node
+local isn = ls.indent_snippet_node
+local t = ls.text_node
+local i = ls.insert_node
+local f = ls.function_node
+local c = ls.choice_node
+local d = ls.dynamic_node
+local r = ls.restore_node
 local events = require("luasnip.util.events")
 local ai = require("luasnip.nodes.absolute_indexer")
 local fmt = require("luasnip.extras.fmt").fmt
 local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
-local parse = luasnip.parser.parse_snippet
+local parse = ls.parser.parse_snippet
 
-luasnip.config.set_config({
-	update_events = "TextChanged,TextChangedI",
+ls.config.set_config({
+	delete_check_events = "TextChanged"
 })
+
+-- vim.keymap.set({ "i", "n" }, "<C-i>", function()
+-- 	if ls.choice_active() then
+-- 		ls.change_choice(1)
+-- 	end
+-- end)
 
 require("luasnip.session.snippet_collection").clear_snippets("go")
 
-luasnip.add_snippets("go", {
+ls.add_snippets("go", {
 	-- LuaSnip syntax
-	snippet({
+	s({
 		trig = "iferr",
 		name = "Handle error",
 		dscr = "If error does not equal nil, handle error or return",
 		docstring = "if err != nil {\n\treturn err\n}",
 	}, {
-		text("if "),
-		insert(1, "err"),
-		text({ " != nil; {", "\t" }),
-		insert(0, "return err"),
-		text({ "", "}" }),
+		t({ "if err != nil {", "\t" }),
+		i(0, "return err"),
+		t({ "", "}" }),
 	}),
 	-- LSP syntax
 	parse({
 		trig = "func",
 	}, "func $1($2) $3 {\n\t$0\n}"),
 	-- "fmt" syntax
-	snippet({
+	s({
 		trig = "fmain",
 		docstring = "func main() {\n\t\n}",
-	}, fmt("func main() {{\n\t{}\n}}", { insert(0) })),
+	}, fmt("func main() {{\n\t{}\n}}", { i(0) })),
+})
+
+ls.add_snippets("svelte", {
+	s({
+		trig = "ts_script_tag",
+		name = "TypeScript <script> tag",
+		docstring = "<script lang=\"ts\">"
+	}, {
+		t({ "<script lang=\"ts\">", "\t" }),
+		i(0),
+		t({ "", "</script>" })
+	}),
+	s("onmount", {
+		t({ "import { onMount } from \"svelte\"", "" }),
+		t("onMount(("),
+		i(1),
+		t({ ") => {", "\t" }),
+		i(0),
+		t({ "", "})" })
+	}),
+	s("load_fn", {
+		t({ "import type { Load } from '@sveltejs/kit'", "", "" }),
+		t("export const load: Load = async ({ "),
+		i(1, "url, params, fetch"),
+		t({ " }) => {", "\t" }),
+		i(0),
+		t({ "", "\t" }),
+		t({ "return {", "\t\t" }),
+		t({ "props: {", "\t\t\t" }),
+		t({ "/* payload */", "\t\t" }),
+		t({ "}", "\t" }),
+		t({ "}", "" }),
+		t("}")
+
+	})
 })

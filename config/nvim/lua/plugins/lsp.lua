@@ -3,7 +3,10 @@
 local lspconfig = require("lspconfig")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+
 
 -- Generic on_attach
 -- Do nothing, LSP mappings made generic...
@@ -49,6 +52,7 @@ require("nvim-lsp-installer").setup({
 local null_ls = require("null-ls")
 
 null_ls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 	sources = {
 		null_ls.builtins.diagnostics.vale,
@@ -58,15 +62,19 @@ null_ls.setup({
 })
 
 lspconfig.bashls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 lspconfig.pyright.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 lspconfig.svelte.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 lspconfig.tsserver.setup({
+	capabilities = capabilities,
 	on_attach = function(client)
 		client.server_capabilities.document_formatting = false
 		client.server_capabilities.document_range_formatting = false
@@ -75,10 +83,12 @@ lspconfig.tsserver.setup({
 	end,
 })
 lspconfig.yamlls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lspconfig.gopls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 	settings = {
 		gopls = {
@@ -96,6 +106,7 @@ lspconfig.gopls.setup({
 })
 
 lspconfig.sumneko_lua.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 	settings = {
 		Lua = {
@@ -107,31 +118,31 @@ lspconfig.sumneko_lua.setup({
 })
 
 lspconfig.jsonls.setup({
+	capabilities = capabilities,
 	on_attach = function(client)
 		client.server_capabilities.document_formatting = false
 		client.server_capabilities.document_range_formatting = false
 
 		on_attach()
 	end,
-	capabilities = capabilities,
 })
 
 lspconfig.html.setup({
+	capabilities = capabilities,
 	on_attach = function(client)
 		client.server_capabilities.document_formatting = false
 		client.server_capabilities.document_range_formatting = false
 
 		on_attach()
 	end,
-	capabilities = capabilities,
 })
 
 lspconfig.cssls.setup({
+	capabilities = capabilities,
 	on_attach = function(client)
 		client.server_capabilities.document_formatting = false
 		client.server_capabilities.document_range_formatting = false
 
 		on_attach()
 	end,
-	capabilities = capabilities,
 })
