@@ -14,7 +14,6 @@ map("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true })
 map("", "j", "(v:count == 0 ? 'gj' : 'j')", { noremap = true, silent = true, expr = true })
 map("", "k", "(v:count == 0 ? 'gk' : 'k')", { noremap = true, silent = true, expr = true })
 
--- Unbind help and macro keys
+-- Unbind F1 help
 map("", "<F1>", "<nop>", {})
-map("", "q", "<nop>", { noremap = true })
 

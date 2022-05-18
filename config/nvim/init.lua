@@ -21,7 +21,7 @@ g.nowritebackup = true
 b.textwidth = 72
 o.tabstop = 2
 o.shiftwidth = 2
-o.expandtab = false
+o.expandtab = true
 
 require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
