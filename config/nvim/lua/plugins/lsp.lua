@@ -12,6 +12,7 @@ local on_attach = function()
   local map = vim.api.nvim_set_keymap
 
   map("n", "<space>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+  map("v", "<space>f", "<ESC><cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
   map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
   map("n", "gp", '<Cmd>lua require"lspsaga.provider".preview_definition()<CR>', opts)
