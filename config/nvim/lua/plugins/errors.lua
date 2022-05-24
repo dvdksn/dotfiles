@@ -2,6 +2,7 @@
 
 local map = vim.api.nvim_set_keymap
 
+
 require("trouble").setup({
 	position = "bottom", -- position of the list can be: bottom, top, left, right
 	mode = "workspace_diagnostics", -- "workspace_diagnostics", "lsp_document_diagnostics", "quickfix", "lsp_references", "loclist"

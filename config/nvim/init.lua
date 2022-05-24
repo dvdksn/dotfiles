@@ -25,10 +25,12 @@ o.expandtab = true
 
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
-  use("hoob3rt/lualine.nvim")
   use("kyazdani42/nvim-web-devicons")
-  use("kyazdani42/nvim-tree.lua")
-  use("romgrk/barbar.nvim")
+  use {
+    "nvim-lualine/lualine.nvim",
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+  use("tamago324/lir.nvim")
   use({ "folke/tokyonight.nvim", branch = "main" })
   use("nvim-lua/popup.nvim")
   use("nvim-lua/plenary.nvim")
@@ -88,10 +90,9 @@ cmd([[colorscheme tokyonight]])
 require("maps")
 require("plugins.completion")
 require("plugins.errors")
+require("plugins.lir")
 require("plugins.lsp")
-require("plugins.statusline")
-require("plugins.tabline")
-require("plugins.telescope")
-require("plugins.nvimtree")
+require("plugins.lualine")
 require("plugins.snippets")
+require("plugins.telescope")
 require("plugins.treesitter")

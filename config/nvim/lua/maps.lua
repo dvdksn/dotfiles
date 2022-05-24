@@ -17,3 +17,10 @@ map("", "k", "(v:count == 0 ? 'gk' : 'k')", { noremap = true, silent = true, exp
 -- Unbind F1 help
 map("", "<F1>", "<nop>", {})
 
+map("n", "<A-,>", ":bp<CR>", { noremap = true, silent = true })
+map("n", "<A-.>", ":bn<CR>", { noremap = true, silent = true })
+
+map("n", "<leader>qq", ":q<CR>", { noremap = true})
+map("n", "<leader>qa", ":qa<CR>", { noremap = true})
+map("n", "<leader>wqq", ":wq<CR>", { noremap = true})
+map("n", "<leader>wqa", ":wqa<CR>", { noremap = true})

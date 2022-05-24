@@ -3,8 +3,8 @@
 -- Settings
 require("lualine").setup({
 	options = {
-		section_separators = { left = "", right = "" },
-		component_separators = { left = "", right = "" },
+		section_separators = {},
+		component_separators = {},
 		theme = "tokyonight",
 	},
 	sections = {
@@ -28,3 +28,5 @@ require("lualine").setup({
 		lualine_z = { "location" },
 	},
 })
+
+vim.g.laststatus = 3

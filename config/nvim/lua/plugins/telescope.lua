@@ -1,5 +1,7 @@
 -- Search/fuzzy finder
 
+require("telescope").setup{}
+
 -- Mappings
 local map = vim.api.nvim_set_keymap
 
