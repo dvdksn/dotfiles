@@ -2,8 +2,6 @@ local actions = require 'lir.actions'
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_netrwSettings = 1
-vim.g.loaded_netrwFileHandlers = 1
 
 vim.cmd[[au VimEnter * highlight LirFloatBorder guibg=NONE guifg=#3d59a1]]
 
@@ -49,5 +47,5 @@ require 'lir'.setup {
 }
 
 local map = vim.api.nvim_set_keymap
-map("n", "<C-n>", ":lua require'lir.float'.toggle()<CR>", { noremap = true, silent = true })
-map("n", "<leader>h", ":edit %:h<CR>", { noremap = true, silent = true })
+map("n", "<C-b>", ":lua require'lir.float'.toggle()<CR>", { noremap = true, silent = true })
+map("n", "<C-h>", ":edit %:h<CR>", { noremap = true, silent = true })
