@@ -32,6 +32,7 @@ end
 
 require("nvim-lsp-installer").setup({
   ensure_installed = {
+    "astro",
     "bashls",
     "golangci_lint",
     "gopls",
@@ -54,7 +55,9 @@ null_ls.setup({
   on_attach = on_attach,
   sources = {
     null_ls.builtins.diagnostics.vale,
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettier.with({
+      extra_filetypes = { "astro" }
+    }),
     null_ls.builtins.formatting.black,
   },
 })
@@ -83,6 +86,15 @@ lspconfig.tsserver.setup({
 lspconfig.yamlls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+})
+lspconfig.astro.setup({
+  capabilities = capabilities,
+  on_attach = function(client)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+
+    on_attach()
+  end,
 })
 
 lspconfig.gopls.setup({

@@ -1,34 +1,28 @@
-local g = vim.g
-local o = vim.o
-local w = vim.wo
-local b = vim.bo
-local cmd = vim.cmd
-
-g.mapleader = ","
-w.number = true
-b.autoindent = true
-b.smartindent = true
-g.smarttab = true
-g.magic = true
-o.termguicolors = true
-o.hidden = true
-g.encoding = "utf-8"
-o.cmdheight = 1
-w.signcolumn = "yes"
-g.updatetime = 300
-g.nobackup = true
-g.nowritebackup = true
-b.textwidth = 72
-o.tabstop = 2
-o.shiftwidth = 2
-o.expandtab = true
+vim.g.mapleader = ","
+vim.w.number = true
+vim.b.autoindent = true
+vim.b.smartindent = true
+vim.g.smarttab = true
+vim.g.magic = true
+vim.o.termguicolors = true
+vim.o.hidden = true
+vim.g.encoding = "utf-8"
+vim.o.cmdheight = 1
+vim.w.signcolumn = "yes"
+vim.g.updatetime = 300
+vim.g.nobackup = true
+vim.g.nowritebackup = true
+vim.b.textwidth = 72
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
+vim.g.do_filetype_lua = 1
 
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
   use("kyazdani42/nvim-web-devicons")
   use {
     "nvim-lualine/lualine.nvim",
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
   use("tamago324/lir.nvim")
   use({ "folke/tokyonight.nvim", branch = "main" })
@@ -84,8 +78,17 @@ require("packer").startup(function(use)
 end)
 
 -- Color scheme:
-g.tokyonight_dark_sidebar = false
-cmd([[colorscheme tokyonight]])
+vim.cmd([[colorscheme tokyonight]])
+require("nvim-web-devicons").setup {
+  override = {
+    astro = {
+      icon = "🙭",
+      color = "#bf38be",
+      cterm_color = "65",
+      name = "Astro"
+    }
+  };
+}
 
 require("maps")
 require("plugins.completion")
