@@ -114,6 +114,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+alias nvm_upgrade="nvm install node --reinstall-packages-from=node --latest-npm"
+
 # Kitty aliases
 alias icat="kitty +kitten icat"
 alias d="kitty +kitten diff"
@@ -124,7 +126,8 @@ export DEV="${HOME}/Development"
 # Generic aliases
 alias py="python"
 
-# Go setup
-export PATH=$PATH:/usr/local/go/bin
+# PATH setup
+export PATH=$PATH:/usr/local/go/bin:./node_modules/.bin
 export PATH=$PATH:$(go env GOPATH)/bin
 export GOPATH=$(go env GOPATH)
+

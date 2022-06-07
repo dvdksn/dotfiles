@@ -1,5 +1,5 @@
 vim.g.mapleader = ","
-vim.w.number = true
+vim.wo.number = true
 vim.b.autoindent = true
 vim.b.smartindent = true
 vim.g.smarttab = true
@@ -8,7 +8,7 @@ vim.o.termguicolors = true
 vim.o.hidden = true
 vim.g.encoding = "utf-8"
 vim.o.cmdheight = 1
-vim.w.signcolumn = "yes"
+vim.wo.signcolumn = "yes"
 vim.g.updatetime = 300
 vim.g.nobackup = true
 vim.g.nowritebackup = true
