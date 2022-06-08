@@ -17,6 +17,7 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.g.do_filetype_lua = 1
+vim.g.scrolloff = 5
 
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
