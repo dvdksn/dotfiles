@@ -5,9 +5,27 @@ local lspconfig = require("lspconfig")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+vim.diagnostic.config({
+  virtual_text = false,
+})
 
 -- Generic on_attach
-local on_attach = function()
+local on_attach = function(client, bufnr)
+  -- vim.api.nvim_create_autocmd("CursorHold", {
+  --   buffer = bufnr,
+  --   callback = function()
+  --     local hoveropts = {
+  --       focusable = false,
+  --       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+  --       border = 'rounded',
+  --       source = 'always',
+  --       prefix = ' ',
+  --       scope = 'cursor',
+  --     }
+  --     vim.diagnostic.open_float(nil, hoveropts)
+  --   end
+  -- })
+
   local opts = { noremap = true, silent = true }
   local map = vim.api.nvim_set_keymap
 
@@ -76,11 +94,11 @@ lspconfig.svelte.setup({
 })
 lspconfig.tsserver.setup({
   capabilities = capabilities,
-  on_attach = function(client)
+  on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
-    on_attach()
+    on_attach(client, bufnr)
   end,
 })
 lspconfig.yamlls.setup({
@@ -89,11 +107,11 @@ lspconfig.yamlls.setup({
 })
 lspconfig.astro.setup({
   capabilities = capabilities,
-  on_attach = function(client)
+  on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
-    on_attach()
+    on_attach(client, bufnr)
   end,
 })
 
@@ -129,30 +147,30 @@ lspconfig.sumneko_lua.setup({
 
 lspconfig.jsonls.setup({
   capabilities = capabilities,
-  on_attach = function(client)
+  on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
-    on_attach()
+    on_attach(client, bufnr)
   end,
 })
 
 lspconfig.html.setup({
   capabilities = capabilities,
-  on_attach = function(client)
+  on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
-    on_attach()
+    on_attach(client, bufnr)
   end,
 })
 
 lspconfig.cssls.setup({
   capabilities = capabilities,
-  on_attach = function(client)
+  on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
 
-    on_attach()
+    on_attach(client, bufnr)
   end,
 })

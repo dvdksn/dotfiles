@@ -9,7 +9,7 @@ vim.o.hidden = true
 vim.g.encoding = "utf-8"
 vim.o.cmdheight = 1
 vim.wo.signcolumn = "yes"
-vim.g.updatetime = 300
+vim.o.updatetime = 300
 vim.g.nobackup = true
 vim.g.nowritebackup = true
 vim.b.textwidth = 72
@@ -46,7 +46,7 @@ require("packer").startup(function(use)
         max_preview_lines = 10,
         border_style = "round",
         code_action_prompt = {
-          virtual_text = false,
+          sign = false,
         },
       })
     end,
