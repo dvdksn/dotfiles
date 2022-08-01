@@ -5,7 +5,7 @@ require("lualine").setup({
 	options = {
 		section_separators = {},
 		component_separators = {},
-		theme = "tokyonight",
+		theme = "nightfly",
 	},
 	sections = {
 		lualine_a = { "mode" },

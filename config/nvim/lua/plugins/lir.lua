@@ -5,13 +5,11 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
 vim.g.loaded_netrwFileHandlers = 1
 
-vim.cmd [[au VimEnter * highlight LirFloatBorder guibg=NONE guifg=#3d59a1]]
-
 require 'lir'.setup {
   show_hidden_files = true,
   devicons_enable = true,
   float = {
-    winblend = 15,
+    winblend = 0,
     curdir_window = {
       enable = true,
       highlight_dirname = true

@@ -26,7 +26,7 @@ require("packer").startup(function(use)
     "nvim-lualine/lualine.nvim",
   }
   use("tamago324/lir.nvim")
-  use({ "folke/tokyonight.nvim", branch = "main" })
+  use("EdenEast/nightfox.nvim")
   use("nvim-lua/popup.nvim")
   use("nvim-lua/plenary.nvim")
   use("nvim-telescope/telescope.nvim")
@@ -37,7 +37,11 @@ require("packer").startup(function(use)
     end,
   })
   use("lukas-reineke/indent-blankline.nvim")
-  use("neovim/nvim-lspconfig")
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig"
+  }
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
   use("folke/trouble.nvim")
   use({
@@ -59,11 +63,9 @@ require("packer").startup(function(use)
     end,
   })
   use("windwp/nvim-ts-autotag")
-  use("yamatsum/nvim-cursorline")
   use("hrsh7th/nvim-cmp")
   use("hrsh7th/cmp-nvim-lsp")
   use("ellisonleao/glow.nvim")
-  use("williamboman/nvim-lsp-installer")
   use("jose-elias-alvarez/null-ls.nvim")
   use("onsails/lspkind.nvim")
   use("L3MON4D3/LuaSnip")
@@ -78,8 +80,15 @@ require("packer").startup(function(use)
   }
 end)
 
+require("mason").setup()
+
 -- Color scheme:
-vim.cmd([[colorscheme tokyonight]])
+require("nightfox").setup({
+  options = {
+    transparent = true
+  }
+})
+vim.cmd("colorscheme nightfox")
 require("nvim-web-devicons").setup {
   override = {
     astro = {

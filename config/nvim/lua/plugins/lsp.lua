@@ -48,7 +48,7 @@ local on_attach = function(client, bufnr)
   map("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 end
 
-require("nvim-lsp-installer").setup({
+require("mason-lspconfig").setup({
   ensure_installed = {
     "astro",
     "bashls",
@@ -73,9 +73,7 @@ null_ls.setup({
   on_attach = on_attach,
   sources = {
     null_ls.builtins.diagnostics.vale,
-    null_ls.builtins.formatting.prettier.with({
-      extra_filetypes = { "astro" }
-    }),
+    null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.black,
   },
 })
@@ -107,12 +105,7 @@ lspconfig.yamlls.setup({
 })
 lspconfig.astro.setup({
   capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-
-    on_attach(client, bufnr)
-  end,
+  on_attach = on_attach,
 })
 
 lspconfig.gopls.setup({
