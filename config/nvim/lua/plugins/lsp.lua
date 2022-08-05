@@ -52,6 +52,7 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     "astro",
     "bashls",
+    "elixirls",
     "golangci_lint",
     "gopls",
     "html",
@@ -106,6 +107,11 @@ lspconfig.yamlls.setup({
 lspconfig.astro.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+})
+lspconfig.elixirls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  cmd = { vim.fn.stdpath("data"), "mason/packages/elixir-ls/language_server.sh" }
 })
 
 lspconfig.gopls.setup({
