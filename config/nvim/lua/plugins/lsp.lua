@@ -61,6 +61,7 @@ require("mason-lspconfig").setup({
     "pyright",
     "sumneko_lua",
     "svelte",
+    "terraformls",
     "tsserver",
     "yamlls",
   },
@@ -105,6 +106,10 @@ lspconfig.yamlls.setup({
   on_attach = on_attach,
 })
 lspconfig.astro.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+lspconfig.terraformls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
