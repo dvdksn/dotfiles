@@ -88,20 +88,35 @@ ls.add_snippets("svelte", {
 ls.add_snippets("markdown", {
   s({
     trig = "---",
-    name = "New Hugo page",
-    dscr = "Creates a new Hugo page with front matter template.",
-    docstring = "---\ntitle: \ndescription: \nkeywords: []\ncontentType: \n---",
+    name = "New docs page",
+    dscr = "Creates a new docs page with front matter template.",
+    docstring = "---\ntitle: \ndescription: \nkeywords: []\n---",
   }, {
     t({ "---", "" }),
     t { ("title: ") },
     i(1),
     t({ "", "description: " }),
     i(2),
-    t({ "", "keywords: [" }),
+    t({ "", "keywords: " }),
     i(3),
-    t({ "]", "contentType: " }),
-    i(4),
     t({ "", "---", "", "" }),
     i(0)
-  })
+  }),
+  s({
+    trig = "{:",
+    name = 'target="blank"',
+  }, {
+    t('{: target="blank" rel="noopener" class=""}'),
+  }),
+  -- s({
+  --   trig = "[",
+  --   name = 'Link',
+  -- }, {
+  --   t("["),
+  --   i({1, "link text"}),
+  --   t({"]("}),
+  --   i({2, "target"}),
+  --   t({")"}),
+  --   i({0, '{: target="blank" rel="noopener" class=""}'})
+  -- })
 })
