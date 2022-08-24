@@ -18,6 +18,7 @@ vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.g.do_filetype_lua = 1
 vim.wo.scrolloff = 5
+vim.o.splitright = true
 
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
@@ -99,6 +100,19 @@ require("nvim-web-devicons").setup {
     }
   };
 }
+
+-- autocmds
+
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
+local aug_default = augroup("AugDefault", {})
+
+autocmd({"BufEnter"}, {
+  group = aug_default,
+  pattern = "*.md",
+  command = "set nowrap"
+})
 
 require("maps")
 require("plugins.completion")
