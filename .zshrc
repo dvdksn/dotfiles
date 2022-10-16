@@ -111,7 +111,10 @@ alias vimcd="cd ~/.config/nvim"
 
 alias loremd="curl https://jaspervdj.be/lorem-markdownum/markdown.txt"
 
-export BROWSER=/usr/bin/firefox-developer-edition
+case "$(uname -s)" in
+  Darwin*)   export BROWSER="open -a /Applications/Firefox\ Developer\ Edition.app/ -g";;
+  Linux*)    export BROWSER=/usr/bin/firefox-developer-edition;;
+esac
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -134,3 +137,6 @@ export PATH=$PATH:/usr/local/go/bin:./node_modules/.bin
 export PATH=$PATH:$(go env GOPATH)/bin
 export GOPATH=$(go env GOPATH)
 
+# git
+alias gbc="git rev-list --count HEAD ^master"
+alias gpum="git pull upstream master"

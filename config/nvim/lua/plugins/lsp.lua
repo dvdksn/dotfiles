@@ -1,13 +1,11 @@
--- LSP-related config
-
 local lspconfig = require("lspconfig")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-vim.diagnostic.config({
-  virtual_text = false,
-})
+-- vim.diagnostic.config({
+--   virtual_text = false,
+-- })
 
 -- Generic on_attach
 local on_attach = function(client, bufnr)
@@ -52,12 +50,12 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     "astro",
     "bashls",
+    "cssls",
     "elixirls",
     "golangci_lint",
     "gopls",
     "html",
     "jsonls",
-    "cssls",
     "pyright",
     "sumneko_lua",
     "svelte",

@@ -108,7 +108,7 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local aug_default = augroup("AugDefault", {})
 
-autocmd({"BufEnter"}, {
+autocmd({ "BufEnter" }, {
   group = aug_default,
   pattern = "*.md",
   command = "set nowrap"
