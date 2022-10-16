@@ -133,7 +133,6 @@ export DEV="${HOME}/Development"
 alias py="python"
 
 # PATH setup
-export PATH=$PATH:/usr/local/go/bin:./node_modules/.bin
 export PATH=$PATH:$(go env GOPATH)/bin
 export GOPATH=$(go env GOPATH)
 
