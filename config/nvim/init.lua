@@ -79,17 +79,19 @@ require("packer").startup(function(use)
       require('Comment').setup()
     end
   }
-end)
+  end)
 
 require("mason").setup()
 
 -- Color scheme:
 require("nightfox").setup({
-  options = {
-    transparent = true
+  palettes = {
+    carbonfox = {
+      comment = "cyan"
+    }
   }
 })
-vim.cmd("colorscheme nightfox")
+vim.cmd("colorscheme carbonfox")
 require("nvim-web-devicons").setup {
   override = {
     astro = {
