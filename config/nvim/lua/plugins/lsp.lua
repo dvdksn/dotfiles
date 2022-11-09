@@ -52,7 +52,7 @@ require("mason-lspconfig").setup({
     "bashls",
     "cssls",
     "elixirls",
-    "golangci_lint",
+    "golangci_lint_ls",
     "gopls",
     "html",
     "jsonls",
