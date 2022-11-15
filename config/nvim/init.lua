@@ -92,16 +92,6 @@ require("nightfox").setup({
   }
 })
 vim.cmd("colorscheme carbonfox")
-require("nvim-web-devicons").setup {
-  override = {
-    astro = {
-      icon = "🙭",
-      color = "#bf38be",
-      cterm_color = "65",
-      name = "Astro"
-    }
-  };
-}
 
 -- autocmds
 

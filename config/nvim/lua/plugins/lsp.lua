@@ -48,10 +48,9 @@ end
 
 require("mason-lspconfig").setup({
   ensure_installed = {
-    "astro",
     "bashls",
     "cssls",
-    "elixirls",
+    "dockerls",
     "golangci_lint_ls",
     "gopls",
     "html",
@@ -82,6 +81,10 @@ lspconfig.bashls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+lspconfig.dockerls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 lspconfig.pyright.setup({
   capabilities = capabilities,
   on_attach = on_attach,
@@ -103,20 +106,10 @@ lspconfig.yamlls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
-lspconfig.astro.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
 lspconfig.terraformls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
-lspconfig.elixirls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-  cmd = { vim.fn.stdpath("data"), "mason/packages/elixir-ls/language_server.sh" }
-})
-
 lspconfig.gopls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
