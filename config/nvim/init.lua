@@ -23,6 +23,26 @@ vim.o.splitright = true
 require("packer").startup(function(use)
   use("wbthomason/packer.nvim")
   use("kyazdani42/nvim-web-devicons")
+  use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig"
+  }
+  use("jose-elias-alvarez/null-ls.nvim")
+  use("folke/trouble.nvim")
+  use({
+    "tami5/lspsaga.nvim",
+    config = function()
+      require("lspsaga").init_lsp_saga({
+        max_preview_lines = 10,
+        border_style = "round",
+        code_action_prompt = {
+          sign = false,
+        },
+      })
+    end,
+  })
   use {
     "nvim-lualine/lualine.nvim",
   }
@@ -37,49 +57,12 @@ require("packer").startup(function(use)
       require("gitsigns").setup()
     end,
   })
-  use("lukas-reineke/indent-blankline.nvim")
-  use {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig"
-  }
-  use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-  use("folke/trouble.nvim")
-  use({
-    "tami5/lspsaga.nvim",
-    config = function()
-      require("lspsaga").init_lsp_saga({
-        max_preview_lines = 10,
-        border_style = "round",
-        code_action_prompt = {
-          sign = false,
-        },
-      })
-    end,
-  })
-  use({
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup({})
-    end,
-  })
-  use("windwp/nvim-ts-autotag")
   use("hrsh7th/nvim-cmp")
   use("hrsh7th/cmp-nvim-lsp")
-  use("ellisonleao/glow.nvim")
-  use("jose-elias-alvarez/null-ls.nvim")
-  use("onsails/lspkind.nvim")
-  use("L3MON4D3/LuaSnip")
   use("hrsh7th/cmp-path")
+  use("L3MON4D3/LuaSnip")
   use("saadparwaiz1/cmp_luasnip")
-  use("gpanders/editorconfig.nvim")
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end
-  }
-  end)
+end)
 
 require("mason").setup()
 

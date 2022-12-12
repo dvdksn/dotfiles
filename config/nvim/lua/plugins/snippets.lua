@@ -50,41 +50,6 @@ ls.add_snippets("go", {
   }, fmt("func main() {{\n\t{}\n}}", { i(0) })),
 })
 
-ls.add_snippets("svelte", {
-  s({
-    trig = "ts_script_tag",
-    name = "TypeScript <script> tag",
-    docstring = "<script lang=\"ts\">"
-  }, {
-    t({ "<script lang=\"ts\">", "\t" }),
-    i(0),
-    t({ "", "</script>" })
-  }),
-  s("onmount", {
-    t({ "import { onMount } from \"svelte\"", "" }),
-    t("onMount(("),
-    i(1),
-    t({ ") => {", "\t" }),
-    i(0),
-    t({ "", "})" })
-  }),
-  s("load_fn", {
-    t({ "import type { Load } from '@sveltejs/kit'", "", "" }),
-    t("export const load: Load = async ({ "),
-    i(1, "url, params, fetch"),
-    t({ " }) => {", "\t" }),
-    i(0),
-    t({ "", "\t" }),
-    t({ "return {", "\t\t" }),
-    t({ "props: {", "\t\t\t" }),
-    t({ "/* payload */", "\t\t" }),
-    t({ "}", "\t" }),
-    t({ "}", "" }),
-    t("}")
-
-  })
-})
-
 ls.add_snippets("markdown", {
   s({
     trig = "---",
@@ -106,17 +71,6 @@ ls.add_snippets("markdown", {
     trig = "{:",
     name = 'target="blank"',
   }, {
-    t('{: target="blank" rel="noopener" class=""}'),
+    t('{: target="blank" rel="noopener" class="_"}'),
   }),
-  -- s({
-  --   trig = "[",
-  --   name = 'Link',
-  -- }, {
-  --   t("["),
-  --   i({1, "link text"}),
-  --   t({"]("}),
-  --   i({2, "target"}),
-  --   t({")"}),
-  --   i({0, '{: target="blank" rel="noopener" class=""}'})
-  -- })
 })

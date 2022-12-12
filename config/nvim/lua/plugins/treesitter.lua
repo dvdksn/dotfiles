@@ -18,7 +18,6 @@ require("nvim-treesitter.configs").setup({
     "markdown_inline",
     "python",
     "regex",
-    "scss",
     "svelte",
     "toml",
     "typescript",

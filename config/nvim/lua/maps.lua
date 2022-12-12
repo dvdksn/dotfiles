@@ -19,6 +19,3 @@ map("", "<F1>", "<nop>", {})
 
 map("n", "<A-,>", ":bp<CR>", { noremap = true, silent = true })
 map("n", "<A-.>", ":bn<CR>", { noremap = true, silent = true })
-
-map("n", "<leader>q", ":q<CR>", { noremap = true})
-map("n", "<leader>w", ":w<CR>", { noremap = true})

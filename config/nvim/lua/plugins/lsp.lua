@@ -3,27 +3,10 @@ local lspconfig = require("lspconfig")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
--- vim.diagnostic.config({
---   virtual_text = false,
--- })
 
 -- Generic on_attach
 local on_attach = function(client, bufnr)
-  -- vim.api.nvim_create_autocmd("CursorHold", {
-  --   buffer = bufnr,
-  --   callback = function()
-  --     local hoveropts = {
-  --       focusable = false,
-  --       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-  --       border = 'rounded',
-  --       source = 'always',
-  --       prefix = ' ',
-  --       scope = 'cursor',
-  --     }
-  --     vim.diagnostic.open_float(nil, hoveropts)
-  --   end
-  -- })
-
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local opts = { noremap = true, silent = true }
   local map = vim.api.nvim_set_keymap
 
@@ -49,7 +32,6 @@ end
 require("mason-lspconfig").setup({
   ensure_installed = {
     "bashls",
-    "cssls",
     "dockerls",
     "golangci_lint_ls",
     "gopls",
@@ -57,8 +39,7 @@ require("mason-lspconfig").setup({
     "jsonls",
     "pyright",
     "sumneko_lua",
-    "svelte",
-    "terraformls",
+    "tailwindcss",
     "tsserver",
     "yamlls",
   },
@@ -77,6 +58,10 @@ null_ls.setup({
   },
 })
 
+lspconfig.tailwindcss.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 lspconfig.bashls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
@@ -86,10 +71,6 @@ lspconfig.dockerls.setup({
   on_attach = on_attach,
 })
 lspconfig.pyright.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-lspconfig.svelte.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
@@ -103,10 +84,6 @@ lspconfig.tsserver.setup({
   end,
 })
 lspconfig.yamlls.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-lspconfig.terraformls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
@@ -141,26 +118,6 @@ lspconfig.sumneko_lua.setup({
 })
 
 lspconfig.jsonls.setup({
-  capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-
-    on_attach(client, bufnr)
-  end,
-})
-
-lspconfig.html.setup({
-  capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-
-    on_attach(client, bufnr)
-  end,
-})
-
-lspconfig.cssls.setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false

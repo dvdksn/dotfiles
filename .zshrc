@@ -103,7 +103,6 @@ fi
 
 alias nv="nvim"
 alias vim="nvim"
-alias vi="nvim"
 
 alias kittyconf="vim ~/.config/kitty/kitty.conf"
 alias vimconf="vim ~/.config/nvim/init.lua"
