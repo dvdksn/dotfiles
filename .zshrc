@@ -139,3 +139,6 @@ export GOPATH=$(go env GOPATH)
 # git
 alias gbc="git rev-list --count HEAD ^main"
 alias gpum="git pull upstream main"
+
+# rust
+source "$HOME/.cargo/env"

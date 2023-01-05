@@ -38,6 +38,7 @@ require("mason-lspconfig").setup({
     "html",
     "jsonls",
     "pyright",
+    "rust_analyzer",
     "sumneko_lua",
     "tailwindcss",
     "tsserver",
@@ -58,6 +59,10 @@ null_ls.setup({
   },
 })
 
+lspconfig.rust_analyzer.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 lspconfig.tailwindcss.setup({
   capabilities = capabilities,
   on_attach = on_attach,
