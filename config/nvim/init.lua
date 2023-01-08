@@ -19,7 +19,7 @@ require('packer').startup(function(use)
 
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
   }
 
   use { -- Highlight, edit, and navigate code
@@ -50,6 +50,14 @@ require('packer').startup(function(use)
 
   -- Integrate non-LSP sources
   use 'jose-elias-alvarez/null-ls.nvim'
+  
+  -- Shortcut key popup
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {}
+    end
+  }
 
   -- File explorer
   use {
@@ -60,7 +68,6 @@ require('packer').startup(function(use)
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
 end)
-
 
 -- Automatically source and re-compile packer whenever you save this init.lua
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
@@ -143,6 +150,12 @@ vim.api.nvim_set_keymap("n", "<C-b>", ":NvimTreeToggle<CR>", { silent = true, no
 vim.keymap.set("n", "<A-h>", ":bp<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<A-l>", ":bn<CR>", { noremap = true, silent = true })
 
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "[e] Open floating diagnostics" })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "[q] Add diagnostic to location list" })
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -187,6 +200,12 @@ require('gitsigns').setup {
   },
 }
 
+-- Setup neovim lua configuration
+require('neodev').setup()
+
+-- Turn on lsp status information
+require('fidget').setup()
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -218,28 +237,10 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
-
--- Setup neovim lua configuration
-require('neodev').setup()
-
--- Turn on lsp status information
-require('fidget').setup()
-
 -- nvim-cmp setup
 local cmp = require 'cmp'
-local luasnip = require 'luasnip'
 
 cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -247,32 +248,15 @@ cmp.setup {
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
     },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'path' },
     { name = 'luasnip' },
   },
 }
 
--- Load luasnip configuration and snippets
+-- Load external lua configs
 require("treesitter")
 require("lsp")
 require("snippets")
