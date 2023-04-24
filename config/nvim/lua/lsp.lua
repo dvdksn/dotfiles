@@ -54,8 +54,8 @@ local servers = {
   rust_analyzer = {},
   tsserver = {},
   marksman = {},
-
-  sumneko_lua = {
+  tailwindcss = {},
+  lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
@@ -81,7 +81,9 @@ local null_ls = require("null-ls")
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.mdformat,
+    -- null_ls.builtins.diagnostics.markdownlint,
+    -- null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.black,
     null_ls.builtins.diagnostics.vale,
   },
@@ -96,4 +98,3 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
-

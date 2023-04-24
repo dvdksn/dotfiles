@@ -50,7 +50,7 @@ require('packer').startup(function(use)
 
   -- Integrate non-LSP sources
   use 'jose-elias-alvarez/null-ls.nvim'
-  
+
   -- Shortcut key popup
   use {
     "folke/which-key.nvim",
@@ -67,6 +67,9 @@ require('packer').startup(function(use)
     },
     tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
+
+  -- Git integration
+  use 'kdheepak/lazygit.nvim'
 end)
 
 -- Automatically source and re-compile packer whenever you save this init.lua
@@ -120,6 +123,9 @@ vim.o.completeopt = 'menuone,noselect'
 -- Disable netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+-- Color column
+vim.o.colorcolumn = "80"
 
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
@@ -206,7 +212,6 @@ require('neodev').setup()
 -- Turn on lsp status information
 require('fidget').setup()
 
--- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
@@ -218,6 +223,13 @@ require('telescope').setup {
       },
     },
   },
+  -- pickers = {
+  --   live_grep = {
+  --     additional_args = function(opts)
+  --       return { "--hidden" }
+  --     end
+  --   },
+  -- },
 }
 
 -- See `:help telescope.builtin`
@@ -237,30 +249,11 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
--- nvim-cmp setup
-local cmp = require 'cmp'
-
-cmp.setup {
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-    },
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'path' },
-    { name = 'luasnip' },
-  },
-}
-
 -- Load external lua configs
 require("treesitter")
 require("lsp")
 require("snippets")
+require("completion")
 require("explorer")
 
--- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

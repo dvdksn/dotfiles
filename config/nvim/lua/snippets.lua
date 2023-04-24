@@ -98,4 +98,20 @@ luasnip.add_snippets("markdown", {
     i(2),
     t(")"),
   }),
+  s({
+    trig = "raw",
+    name = "Raw section (start)",
+    dscr = "Creates an opening raw tag.",
+    docstring = '{% raw %}',
+  }, {
+    t("{% raw %}"),
+  }),
+  s({
+    trig = "endraw",
+    name = "Raw section (end)",
+    dscr = "Creates an closing raw tag.",
+    docstring = '{% endraw %}',
+  }, {
+    t("{% endraw %}"),
+  }),
 })

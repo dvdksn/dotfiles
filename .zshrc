@@ -71,7 +71,7 @@ ZSH_THEME="af-magic"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker)
+plugins=(git docker vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -101,7 +101,13 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias nv="nvim"
+# Set XDG_CONFIG_HOME
+export XDG_CONFIG_HOME="$HOME/.config"
+
+# Enable vi mode
+bindkey -v
+export VI_MODE_SET_CURSOR=true
+
 alias vim="nvim"
 
 alias kittyconf="vim ~/.config/kitty/kitty.conf"
@@ -123,14 +129,11 @@ alias nvm_upgrade="nvm install node --reinstall-packages-from=node --latest-npm"
 
 # Kitty aliases
 alias icat="kitty +kitten icat"
-alias d="kitty +kitten diff"
-alias gdk="git difftool --no-symlinks --dir-diff"
-
-export DEV="${HOME}/Development"
+alias gd="kitty +kitten diff"
 
 # Generic aliases
-alias py="python"
-alias emacs="nvim"
+alias python="python3"
+alias py="python3"
 
 # PATH setup
 export PATH=$PATH:$(go env GOPATH)/bin:~/.local/bin
@@ -142,3 +145,5 @@ alias gpum="git pull upstream main"
 
 # rust
 source "$HOME/.cargo/env"
+
+source /Users/david/.docker/init-zsh.sh || true # Added by Docker Desktop
