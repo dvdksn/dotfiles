@@ -55,7 +55,7 @@ end)
 
 luasnip.add_snippets("markdown", {
   s({
-    trig = "new document",
+    trig = "newdoc",
     name = "New docs page",
     dscr = "Creates a new docs page with front matter template.",
     docstring = "---\ntitle: \ndescription: \nkeywords: []\n---",

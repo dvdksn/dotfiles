@@ -143,7 +143,5 @@ export GOPATH=$(go env GOPATH)
 alias gbc="git rev-list --count HEAD ^main"
 alias gpum="git pull upstream main"
 
-# rust
-source "$HOME/.cargo/env"
-
-source /Users/david/.docker/init-zsh.sh || true # Added by Docker Desktop
+# Docker Desktop
+source /Users/david/.docker/init-zsh.sh || true 

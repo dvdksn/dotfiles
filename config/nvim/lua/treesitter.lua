@@ -3,19 +3,22 @@
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = {
+    'astro',
     'bash',
+    'css',
     'dockerfile',
     'go',
     'help',
+    'json',
     'lua',
     'markdown',
     'markdown_inline',
     'python',
-    'rust',
+    'toml',
+    'tsx',
     'typescript',
     'vim',
     'yaml',
-    'toml'
   },
 
   highlight = { enable = true },

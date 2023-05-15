@@ -49,9 +49,9 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
+  astro = {},
   gopls = {},
   pyright = {},
-  rust_analyzer = {},
   tsserver = {},
   marksman = {},
   tailwindcss = {},
@@ -81,9 +81,11 @@ local null_ls = require("null-ls")
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.mdformat,
+    -- null_ls.builtins.formatting.mdformat,
     -- null_ls.builtins.diagnostics.markdownlint,
-    -- null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettier.with({
+      extra_filetypes = { "astro" },
+    }),
     null_ls.builtins.formatting.black,
     null_ls.builtins.diagnostics.vale,
   },

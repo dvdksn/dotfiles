@@ -40,13 +40,27 @@ require('packer').startup(function(use)
   -- colorscheme
   use { 'bluz71/vim-moonfly-colors', branch = 'cterm-compat' }
 
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
+  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+  use {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-live-grep-args.nvim',
+      'nvim-telescope/telescope-file-browser.nvim',
+    },
+    config = function()
+      require("telescope").load_extension("live_grep_args")
+    end
+  }
+
+  -- Icons
+  use 'nvim-tree/nvim-web-devicons'
 
   -- Integrate non-LSP sources
   use 'jose-elias-alvarez/null-ls.nvim'
@@ -60,18 +74,26 @@ require('packer').startup(function(use)
   }
 
   -- File explorer
-  use {
-    'nvim-tree/nvim-tree.lua',
-    requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
-  }
+  -- use {
+  --   'nvim-tree/nvim-tree.lua',
+  --   requires = { 'nvim-tree/nvim-web-devicons' },
+  --   tag = 'nightly' -- optional, updated every week. (see issue #1193)
+  -- }
 
   -- Git integration
   use 'kdheepak/lazygit.nvim'
 end)
 
+require("nvim-web-devicons").setup {
+  override = {
+    astro = {
+      icon = "",
+      color = "#bf38be",
+      cterm_color = "65",
+      name = "Astro",
+    }
+  },
+}
 -- Automatically source and re-compile packer whenever you save this init.lua
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
@@ -149,9 +171,6 @@ vim.keymap.set({ "n", "v" }, "<A-k>", ":m .-2<CR>==", { noremap = true })
 vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { noremap = true })
 vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { noremap = true })
 
--- Toggle file explorer
-vim.api.nvim_set_keymap("n", "<C-b>", ":NvimTreeToggle<CR>", { silent = true, noremap = true })
-
 -- Previous and next buffer
 vim.keymap.set("n", "<A-h>", ":bp<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<A-l>", ":bn<CR>", { noremap = true, silent = true })
@@ -223,13 +242,11 @@ require('telescope').setup {
       },
     },
   },
-  -- pickers = {
-  --   live_grep = {
-  --     additional_args = function(opts)
-  --       return { "--hidden" }
-  --     end
-  --   },
-  -- },
+  extensions = {
+    file_browser = {
+      path = "%:p:h",
+    },
+  },
 }
 
 -- See `:help telescope.builtin`
@@ -246,14 +263,17 @@ end, { desc = '[/] Fuzzily search in current buffer]' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sg', require('telescope').extensions.live_grep_args.live_grep_args,
+  { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('v', '<leader>sv', require('telescope-live-grep-args.shortcuts').grep_visual_selection,
+  { desc = '[S]earch [V]isual selection' })
+vim.keymap.set('n', '<leader>b', require "telescope".extensions.file_browser.file_browser, { desc = '[B]rowse files' })
 
 -- Load external lua configs
 require("treesitter")
 require("lsp")
 require("snippets")
 require("completion")
-require("explorer")
 
 -- vim: ts=2 sts=2 sw=2 et
