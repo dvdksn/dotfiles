@@ -84,7 +84,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='vi'
 else
   export EDITOR='nvim'
 fi
@@ -117,8 +117,13 @@ alias vimcd="cd ~/.config/nvim"
 alias loremd="curl https://jaspervdj.be/lorem-markdownum/markdown.txt"
 
 case "$(uname -s)" in
-  Darwin*)   export BROWSER="open -a /Applications/Firefox\ Developer\ Edition.app/ -g";;
-  Linux*)    export BROWSER=/usr/bin/firefox-developer-edition;;
+  Darwin*)
+    export BROWSER="open -a /Applications/Firefox\ Developer\ Edition.app/ -g"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    ;;
+  Linux*)
+    export BROWSER=/usr/bin/firefox-developer-edition
+    ;;
 esac
 
 export NVM_DIR="$HOME/.nvm"
@@ -135,13 +140,10 @@ alias gd="kitty +kitten diff"
 alias python="python3"
 alias py="python3"
 
-# PATH setup
+# Go
 export PATH=$PATH:$(go env GOPATH)/bin:~/.local/bin
 export GOPATH=$(go env GOPATH)
 
 # git
 alias gbc="git rev-list --count HEAD ^main"
 alias gpum="git pull upstream main"
-
-# Docker Desktop
-source /Users/david/.docker/init-zsh.sh || true 
