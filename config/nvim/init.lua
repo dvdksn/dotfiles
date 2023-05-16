@@ -1,55 +1,59 @@
-require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
+-- vim: ts=2 sts=2 sw=2 et
 
-  use { -- LSP Configuration & Plugins
+-- Set <space> as the leader key
+-- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+  -- colorscheme
+  { 'bluz71/vim-moonfly-colors', name = 'moonfly', lazy = false, priority = 1000 },
+
+  {
+    -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
-    requires = {
+    dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
-
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
     },
-  }
+  },
 
-  use { -- Autocompletion
+  {
+    -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  }
-
-  use { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
-  }
-
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+  },
 
   -- Git related plugins
-  use 'lewis6991/gitsigns.nvim'
+  'lewis6991/gitsigns.nvim',
 
-  -- colorscheme
-  use { 'bluz71/vim-moonfly-colors', branch = 'cterm-compat' }
-
-  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
+  'nvim-lualine/lualine.nvim',           -- Fancier statusline
+  'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
+  'numToStr/Comment.nvim',               -- "gc" to comment visual regions/lines
+  'tpope/vim-sleuth',                    -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
-  use {
+  {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
-    requires = {
+    dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
       'nvim-telescope/telescope-file-browser.nvim',
@@ -57,51 +61,44 @@ require('packer').startup(function(use)
     config = function()
       require("telescope").load_extension("live_grep_args")
     end
-  }
+  },
 
   -- Icons
-  use 'nvim-tree/nvim-web-devicons'
+  {
+    'nvim-tree/nvim-web-devicons',
+    config = function()
+      require("nvim-web-devicons").setup {
+        override = {
+          astro = {
+            icon = "󰯉",
+            color = "#bf38be",
+            cterm_color = "65",
+            name = "Astro",
+          }
+        },
+      }
+    end
+  },
 
   -- Integrate non-LSP sources
-  use 'jose-elias-alvarez/null-ls.nvim'
+  'jose-elias-alvarez/null-ls.nvim',
 
   -- Shortcut key popup
-  use {
+  {
     "folke/which-key.nvim",
     config = function()
       require("which-key").setup {}
     end
-  }
-
-  -- File explorer
-  -- use {
-  --   'nvim-tree/nvim-tree.lua',
-  --   requires = { 'nvim-tree/nvim-web-devicons' },
-  --   tag = 'nightly' -- optional, updated every week. (see issue #1193)
-  -- }
-
-  -- Git integration
-  use 'kdheepak/lazygit.nvim'
-end)
-
-require("nvim-web-devicons").setup {
-  override = {
-    astro = {
-      icon = "",
-      color = "#bf38be",
-      cterm_color = "65",
-      name = "Astro",
-    }
   },
-}
--- Automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | silent! LspStop | silent! LspStart | PackerCompile',
-  group = packer_group,
-  pattern = vim.fn.expand '$MYVIMRC',
+
+  -- Tree-sitter
+  {
+    'nvim-treesitter/nvim-treesitter',
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    build = ':TSUpdate',
+  },
+
 })
---
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -137,6 +134,7 @@ vim.o.wrap = false
 
 -- Set colorscheme
 vim.o.termguicolors = true
+vim.g.moonflyNormalFloat = true
 vim.cmd [[colorscheme moonfly]]
 
 -- Set completeopt to have a better completion experience
@@ -150,10 +148,6 @@ vim.g.loaded_netrwPlugin = 1
 vim.o.colorcolumn = "80"
 
 -- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 
 -- unbind space in normal and visual modes
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -228,9 +222,6 @@ require('gitsigns').setup {
 -- Setup neovim lua configuration
 require('neodev').setup()
 
--- Turn on lsp status information
-require('fidget').setup()
-
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
@@ -240,6 +231,11 @@ require('telescope').setup {
         ['<C-u>'] = require('telescope.actions').preview_scrolling_up,
         ['<C-d>'] = require('telescope.actions').preview_scrolling_down,
       },
+    },
+  },
+  pickers = {
+    find_files = {
+      hidden = true
     },
   },
   extensions = {
@@ -270,10 +266,87 @@ vim.keymap.set('v', '<leader>sv', require('telescope-live-grep-args.shortcuts').
   { desc = '[S]earch [V]isual selection' })
 vim.keymap.set('n', '<leader>b', require "telescope".extensions.file_browser.file_browser, { desc = '[B]rowse files' })
 
+-- [[ Configure Treesitter ]]
+-- See `:help nvim-treesitter`
+require('nvim-treesitter.configs').setup {
+  -- Add languages to be installed here that you want installed for treesitter
+  ensure_installed = {
+    'astro',
+    'bash',
+    'css',
+    'dockerfile',
+    'go',
+    'json',
+    'lua',
+    'markdown',
+    'markdown_inline',
+    'python',
+    'toml',
+    'tsx',
+    'typescript',
+    'vim',
+    'vimdoc',
+    'yaml',
+  },
+
+  highlight = { enable = true },
+  indent = { enable = true, disable = { 'python' } },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = '<c-space>',
+      node_incremental = '<c-space>',
+      scope_incremental = '<c-s>',
+      node_decremental = '<c-backspace>',
+    },
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        [']m'] = '@function.outer',
+        [']]'] = '@class.outer',
+      },
+      goto_next_end = {
+        [']M'] = '@function.outer',
+        [']['] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['[m'] = '@function.outer',
+        ['[['] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['[M'] = '@function.outer',
+        ['[]'] = '@class.outer',
+      },
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ['<leader>a'] = '@parameter.inner',
+      },
+      swap_previous = {
+        ['<leader>A'] = '@parameter.inner',
+      },
+    },
+  },
+}
+
 -- Load external lua configs
-require("treesitter")
 require("lsp")
 require("snippets")
 require("completion")
-
--- vim: ts=2 sts=2 sw=2 et
