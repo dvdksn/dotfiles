@@ -135,16 +135,14 @@ vim.o.wrap = false
 -- Set colorscheme
 vim.o.termguicolors = true
 vim.g.moonflyNormalFloat = true
+vim.g.moonflyWinSeparator = true
 vim.cmd [[colorscheme moonfly]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- Color column
+vim.cmd [[highlight ColorColumn guibg=#303030]]
 vim.o.colorcolumn = "80"
 
 -- [[ Basic Keymaps ]]
@@ -290,7 +288,10 @@ require('nvim-treesitter.configs').setup {
   },
 
   highlight = { enable = true },
-  indent = { enable = true, disable = { 'python' } },
+  indent = {
+    enable = true,
+    disable = { 'yaml', 'python' }
+  },
   incremental_selection = {
     enable = true,
     keymaps = {
