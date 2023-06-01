@@ -105,6 +105,7 @@ fi
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # Enable vi mode
+bindkey -a -r ':'
 bindkey -v
 export VI_MODE_SET_CURSOR=true
 
