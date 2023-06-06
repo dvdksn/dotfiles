@@ -1,0 +1,25 @@
+# This is Git's per-user configuration file.
+[user]
+	name = David Karlsson
+	email = 35727626+dvdksn@users.noreply.github.com
+[push]
+	autoSetupRemote = true
+	default = current
+[rerere]
+	enabled = true
+[rebase]
+	autoSquash = true
+[alias]
+	last = log -1 HEAD
+	amend = commit --amend
+	fu = commit --all --fixup
+	# print default branch
+	default = !git branch -rl '*/HEAD' | awk -F/ '{print $NF}'
+	# log commits on current branch
+	blog = !git default | xargs git cherry -v
+	# count commits on current branch
+	cc = !git rev-list --count HEAD "^$(git default)"
+	# rebase commits on current branch
+	rib = !git rebase -i "HEAD~$(git cc)"
+[pull]
+	ff = only
