@@ -110,12 +110,8 @@ bindkey -v
 export VI_MODE_SET_CURSOR=true
 
 alias vim="nvim"
-
-alias kittyconf="vim ~/.config/kitty/kitty.conf"
 alias vimconf="vim ~/.config/nvim/init.lua"
 alias vimcd="cd ~/.config/nvim"
-
-alias loremd="curl https://jaspervdj.be/lorem-markdownum/markdown.txt"
 
 case "$(uname -s)" in
   Darwin*)
@@ -144,10 +140,6 @@ alias py="python3"
 # Go
 export PATH=$PATH:$(go env GOPATH)/bin:~/.local/bin
 export GOPATH=$(go env GOPATH)
-
-# git
-alias gbc="git rev-list --count HEAD ^main"
-alias gpum="git pull upstream main"
 
 # terminal browser
 export browsh="docker run -it --rm --network=host browsh/browsh"
