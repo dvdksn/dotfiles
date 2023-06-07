@@ -129,11 +129,10 @@ export NVM_DIR="$HOME/.nvm"
 
 alias nvm_upgrade="nvm install node --reinstall-packages-from=node --latest-npm"
 
-# Kitty aliases
+# Kittens
 alias icat="kitty +kitten icat"
-alias gd="kitty +kitten diff"
 
-# Generic aliases
+# Sneklang
 alias python="python3"
 alias py="python3"
 
@@ -143,3 +142,20 @@ export GOPATH=$(go env GOPATH)
 
 # terminal browser
 export browsh="docker run -it --rm --network=host browsh/browsh"
+
+# functions for toggling light/dark modes
+function use_light_mode() {
+  kitty +kitten themes --reload-in=all zenbones_light
+}
+
+function use_dark_mode() {
+  kitty +kitten themes --reload-in=all zenbones_dark
+}
+
+# handle light/dark mode
+if [[ "$XDG_CURRENT_DESKTOP" = "GNOME" ]]; then
+  case "$(gsettings get org.gnome.desktop.interface gtk-theme)" in
+    default)        use_light_mode;;
+    prefer-dark)    use_dark_mode;;
+  esac
+fi

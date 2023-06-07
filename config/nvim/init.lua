@@ -20,7 +20,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- colorscheme
-  { 'bluz71/vim-moonfly-colors', name = 'moonfly', lazy = false, priority = 1000 },
+  {
+    "mcchrish/zenbones.nvim",
+    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+    dependencies = { "rktjmp/lush.nvim" }
+  },
 
   {
     -- LSP Configuration & Plugins
@@ -134,9 +138,8 @@ vim.o.wrap = false
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.g.moonflyNormalFloat = true
-vim.g.moonflyWinSeparator = true
-vim.cmd [[colorscheme moonfly]]
+vim.o.background = 'dark'
+vim.cmd [[colorscheme zenbones]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -189,7 +192,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'moonfly',
+    theme = 'zenbones',
     component_separators = '|',
     section_separators = '',
   },
