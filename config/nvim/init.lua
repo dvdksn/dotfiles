@@ -62,9 +62,6 @@ require("lazy").setup({
       'nvim-telescope/telescope-live-grep-args.nvim',
       'nvim-telescope/telescope-file-browser.nvim',
     },
-    config = function()
-      require("telescope").load_extension("live_grep_args")
-    end
   },
 
   -- Icons
@@ -101,6 +98,35 @@ require("lazy").setup({
     dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     build = ':TSUpdate',
   },
+
+  -- startup
+  {
+    'glepnir/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+        theme = 'hyper',
+        change_to_vcs_root = true,
+        config = {
+          week_header = {
+            enable = true,
+          },
+          shortcut = {
+            { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
+            {
+              icon = ' ',
+              icon_hl = '@variable',
+              desc = 'Files',
+              group = 'Label',
+              action = 'Telescope find_files',
+              key = 'f',
+            },
+          },
+        },
+      }
+    end,
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+  }
 
 })
 
@@ -139,13 +165,13 @@ vim.o.wrap = false
 -- Set colorscheme
 vim.o.termguicolors = true
 vim.o.background = 'dark'
-vim.cmd [[colorscheme zenbones]]
+vim.cmd [[colorscheme zenwritten]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
 -- Color column
-vim.cmd [[highlight ColorColumn guibg=#303030]]
+-- vim.cmd [[highlight ColorColumn guibg=#303030]]
 vim.o.colorcolumn = "80"
 
 -- [[ Basic Keymaps ]]
@@ -260,11 +286,8 @@ end, { desc = '[/] Fuzzily search in current buffer]' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope').extensions.live_grep_args.live_grep_args,
-  { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('v', '<leader>sv', require('telescope-live-grep-args.shortcuts').grep_visual_selection,
-  { desc = '[S]earch [V]isual selection' })
 vim.keymap.set('n', '<leader>b', require "telescope".extensions.file_browser.file_browser, { desc = '[B]rowse files' })
 
 -- [[ Configure Treesitter ]]

@@ -145,11 +145,11 @@ export browsh="docker run -it --rm --network=host browsh/browsh"
 
 # functions for toggling light/dark modes
 function use_light_mode() {
-  kitty +kitten themes --reload-in=all zenbones_light
+  kitty +kitten themes --reload-in=all zenwritten_light
 }
 
 function use_dark_mode() {
-  kitty +kitten themes --reload-in=all zenbones_dark
+  kitty +kitten themes --reload-in=all zenwritten_dark
 }
 
 # handle light/dark mode

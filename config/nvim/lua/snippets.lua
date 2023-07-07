@@ -32,26 +32,26 @@ vim.keymap.set({"i", "s"}, "<C-s>", function()
   end
 end, { silent = true })
 
-local function feedchar(key)
-  local escaped = vim.api.nvim_replace_termcodes(key, true, false, true)
-  vim.api.nvim_feedkeys(escaped, "n", false)
-end
-
-vim.keymap.set({"i", "s"}, "<Tab>", function()
-  if luasnip.jumpable(1) then
-    luasnip.jump(1)
-  else
-    feedchar("<Tab>")
-  end
-end)
-
-vim.keymap.set({"i", "s"}, "<S-Tab>", function()
-  if luasnip.jumpable(-1) then
-    luasnip.jump(-1)
-  else
-    feedchar("<Tab>")
-  end
-end)
+-- local function feedchar(key)
+--   local escaped = vim.api.nvim_replace_termcodes(key, true, false, true)
+--   vim.api.nvim_feedkeys(escaped, "n", false)
+-- end
+--
+-- vim.keymap.set({"i", "s"}, "<Tab>", function()
+--   if luasnip.jumpable(1) then
+--     luasnip.jump(1)
+--   else
+--     feedchar("<Tab>")
+--   end
+-- end)
+--
+-- vim.keymap.set({"i", "s"}, "<S-Tab>", function()
+--   if luasnip.jumpable(-1) then
+--     luasnip.jump(-1)
+--   else
+--     feedchar("<Tab>")
+--   end
+-- end)
 
 luasnip.add_snippets("markdown", {
   s({
@@ -114,4 +114,27 @@ luasnip.add_snippets("markdown", {
   }, {
     t("{% endraw %}"),
   }),
+  s({
+    trig = "tabs",
+    name = "Tab group",
+    dscr = "Creates an empty tab group.",
+    docstring = '{{< tabs >}}{{< /tabs >}}',
+  }, {
+      t({"{{< tabs >}}", ""}),
+      i(0),
+      t({"{{< /tabs >}}", ""}),
+  }),
+  s({
+    trig = "tab",
+    name = "Tab",
+    dscr = "Creates a single tab.",
+    docstring = '{{< tab name="" >}}\n{{< /tab >}}',
+  }, {
+      t("{{< tab name=\""),
+      i(1),
+      t({"\" >}}"}),
+      i(0),
+      t({"", "{{< /tab >}}"}),
+  }),
+
 })
