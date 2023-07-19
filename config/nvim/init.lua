@@ -154,6 +154,9 @@ vim.o.smartcase = true
 
 -- Decrease update time
 vim.o.updatetime = 250
+vim.o.timeoutlen = 300
+
+-- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
 -- Set window scroll padding
@@ -164,8 +167,11 @@ vim.o.wrap = false
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.o.background = 'dark'
 vim.cmd [[colorscheme zenwritten]]
+
+if os.getenv('theme') == 'light' then
+  vim.o.background = 'light'
+end
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -213,6 +219,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+--
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup {
@@ -316,7 +323,7 @@ require('nvim-treesitter.configs').setup {
   highlight = { enable = true },
   indent = {
     enable = true,
-    disable = { 'yaml', 'python' }
+    disable = { 'yaml' }
   },
   incremental_selection = {
     enable = true,

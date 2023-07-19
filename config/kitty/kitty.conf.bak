@@ -1371,6 +1371,6 @@ map super+¨ send_text all ~
 
 
 # BEGIN_KITTY_THEME
-# zenbones_light
+# zenwritten_light
 include current-theme.conf
 # END_KITTY_THEME
