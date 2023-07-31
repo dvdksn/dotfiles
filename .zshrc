@@ -68,6 +68,9 @@ fi
 # Set XDG variables
 export XDG_CONFIG_HOME="$HOME/.config"
 
+# Set `cd` PATH
+export CDPATH=~:..:~/src
+
 # Enable vi mode
 bindkey -a -r ':'
 bindkey -v
@@ -131,3 +134,6 @@ if [[ "$XDG_CURRENT_DESKTOP" = "GNOME" ]]; then
     prefer-dark)    use_dark_mode;;
   esac
 fi
+
+# clear right prompt after command
+setopt transientrprompt
