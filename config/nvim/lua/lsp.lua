@@ -50,6 +50,8 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   astro = {},
+  docker_compose_language_service = {},
+  dockerls = {},
   gopls = {},
   pyright = {},
   tsserver = {},
