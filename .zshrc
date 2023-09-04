@@ -137,3 +137,6 @@ fi
 
 # clear right prompt after command
 setopt transientrprompt
+
+# disable docker cli hints
+export DOCKER_CLI_HINTS=false

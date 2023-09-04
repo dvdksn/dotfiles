@@ -49,9 +49,6 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  astro = {},
-  docker_compose_language_service = {},
-  dockerls = {},
   gopls = {},
   pyright = {},
   tsserver = {},
@@ -89,7 +86,7 @@ null_ls.setup({
     -- null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.black,
-    null_ls.builtins.diagnostics.vale,
+    -- null_ls.builtins.diagnostics.vale,
   },
 })
 
