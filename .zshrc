@@ -11,7 +11,16 @@ esac
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="af-magic"
+
+function select_theme {
+  if [[ $THEME == "light" ]]; then
+    echo "dvdksn-light";
+  else
+    echo "dvdksn-dark";
+  fi
+}
+
+ZSH_THEME=$(select_theme)
 
 # Use case-sensitive completion.
 CASE_SENSITIVE="false"
@@ -99,7 +108,6 @@ alias nvm_upgrade="nvm install node --reinstall-packages-from=node --latest-npm"
 
 # Kittens
 alias icat="kitty +kitten icat"
-alias themes="kitty +kitten themes"
 
 # Sneklang
 alias python="python3"
@@ -112,19 +120,18 @@ export GOPATH=$(go env GOPATH)
 # terminal browser
 export browsh="docker run -it --rm --network=host browsh/browsh"
 
-# default theme
-export THEME="dark"
-
 # enable light mode
 function use_light_mode() {
-  kitty +kitten themes --reload-in=all zenwritten_light
+  kitty +kitten themes --reload-in=all Adwaita light
   export THEME="light"
+  omz reload
 }
 
 # enable dark mode
 function use_dark_mode() {
-  kitty +kitten themes --reload-in=all zenwritten_dark
+  kitty +kitten themes --reload-in=all Adwaita darker
   export THEME="dark"
+  omz reload
 }
 
 # infer current theme from GNOME desktop settings

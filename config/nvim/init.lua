@@ -21,9 +21,13 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   -- colorscheme
   {
-    "mcchrish/zenbones.nvim",
-    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-    dependencies = { "rktjmp/lush.nvim" }
+    "Mofiqul/adwaita.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.g.adwaita_darker = true -- for darker version
+      vim.cmd('colorscheme adwaita')
+    end
   },
 
   {
@@ -42,7 +46,13 @@ require("lazy").setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip'
+    },
   },
 
   -- Git related plugins
@@ -165,20 +175,16 @@ vim.o.scrolloff = 5
 -- Disable line wrapping
 vim.o.wrap = false
 
--- Set colorscheme
+-- Colors & styles
 vim.o.termguicolors = true
-vim.cmd [[colorscheme zenwritten]]
+vim.o.colorcolumn = "80"
 
 if os.getenv('theme') == 'light' then
   vim.o.background = 'light'
 end
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- Color column
--- vim.cmd [[highlight ColorColumn guibg=#303030]]
-vim.o.colorcolumn = "80"
+vim.o.completeopt = 'menu,menuone,noselect'
 
 -- [[ Basic Keymaps ]]
 
@@ -225,7 +231,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'zenbones',
+    theme = 'adwaita',
     component_separators = '|',
     section_separators = '',
   },
