@@ -74,17 +74,13 @@ luasnip.add_snippets("markdown", {
     trig = "link",
     name = "Create a new link",
     dscr = "Creates a new internal or external link.",
-    docstring = '[link text](/path/to/target/){: target="blank" rel="noopener" class="\\_" }',
+    docstring = '[link text](/path/to/target/)',
   }, {
     t("["),
     i(1),
     t("]("),
     i(2),
     t(")"),
-    c(3, {
-      t('{: target="blank" rel="noopener" class="_" }'),
-      t(''),
-    }),
   }),
   s({
     trig = "image",
@@ -122,7 +118,7 @@ luasnip.add_snippets("markdown", {
   }, {
       t({"{{< tabs >}}", ""}),
       i(0),
-      t({"{{< /tabs >}}", ""}),
+      t({"", "{{< /tabs >}}"}),
   }),
   s({
     trig = "tab",

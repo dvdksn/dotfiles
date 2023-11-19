@@ -5,6 +5,10 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -58,10 +62,10 @@ require("lazy").setup({
   -- Git related plugins
   'lewis6991/gitsigns.nvim',
 
-  'nvim-lualine/lualine.nvim',           -- Fancier statusline
-  'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
-  'numToStr/Comment.nvim',               -- "gc" to comment visual regions/lines
-  'tpope/vim-sleuth',                    -- Detect tabstop and shiftwidth automatically
+  'nvim-lualine/lualine.nvim',                                        -- Fancier statusline
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} }, -- indentation guides
+  'numToStr/Comment.nvim',                                            -- "gc" to comment visual regions/lines
+  'tpope/vim-sleuth',                                                 -- Detect tabstop and shiftwidth automatically
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -69,8 +73,6 @@ require("lazy").setup({
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope-live-grep-args.nvim',
-      'nvim-telescope/telescope-file-browser.nvim',
     },
   },
 
@@ -92,7 +94,7 @@ require("lazy").setup({
   },
 
   -- Integrate non-LSP sources
-  'jose-elias-alvarez/null-ls.nvim',
+  'nvimtools/none-ls.nvim',
 
   -- Shortcut key popup
   {
@@ -109,35 +111,38 @@ require("lazy").setup({
     build = ':TSUpdate',
   },
 
-  -- startup
+  -- File tree
   {
-    'glepnir/dashboard-nvim',
-    event = 'VimEnter',
+    'nvim-tree/nvim-tree.lua',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require('dashboard').setup {
-        theme = 'hyper',
-        change_to_vcs_root = true,
-        config = {
-          week_header = {
-            enable = true,
-          },
-          shortcut = {
-            { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
-            {
-              icon = ' ',
-              icon_hl = '@variable',
-              desc = 'Files',
-              group = 'Label',
-              action = 'Telescope find_files',
-              key = 'f',
-            },
-          },
-        },
-      }
-    end,
-    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
-  }
+    end
+  },
 
+  -- Editing
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
+
+  -- lsp outline
+  {
+    "hedyhli/outline.nvim",
+    lazy = true,
+    cmd = { "Outline", "OutlineOpen" },
+    keys = { -- Example mapping to toggle outline
+      { "<leader>o", "<cmd>Outline<CR>", desc = "Toggle [O]utline" },
+    },
+    opts = {
+      -- Your setup opts here
+    },
+  },
 })
 
 -- [[ Setting options ]]
@@ -179,12 +184,15 @@ vim.o.wrap = false
 vim.o.termguicolors = true
 vim.o.colorcolumn = "80"
 
-if os.getenv('theme') == 'light' then
-  vim.o.background = 'light'
-end
-
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menu,menuone,noselect'
+
+-- Indentation
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+
+-- Magic mode!
+vim.o.magic = true
 
 -- [[ Basic Keymaps ]]
 
@@ -240,13 +248,6 @@ require('lualine').setup {
 -- Enable Comment.nvim
 require('Comment').setup()
 
--- Enable `lukas-reineke/indent-blankline.nvim`
--- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
-}
-
 -- Gitsigns
 -- See `:help gitsigns.txt`
 require('gitsigns').setup {
@@ -273,11 +274,6 @@ require('telescope').setup {
       },
     },
   },
-  pickers = {
-    find_files = {
-      hidden = true
-    },
-  },
   extensions = {
     file_browser = {
       path = "%:p:h",
@@ -301,7 +297,9 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<leader>b', require "telescope".extensions.file_browser.file_browser, { desc = '[B]rowse files' })
+
+-- Toggle file tree
+vim.keymap.set('n', '<leader>b', ":NvimTreeToggle<CR>", { desc = 'Toggle filetree' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -390,3 +388,4 @@ require('nvim-treesitter.configs').setup {
 require("lsp")
 require("snippets")
 require("completion")
+require("filetree")

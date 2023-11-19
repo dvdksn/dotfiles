@@ -8,12 +8,12 @@ PS1="$FG[056]%~\$(git_prompt_info) $FG[127]%(!.#.$)%{$reset_color%} "
 PS2="%{$fg[red]%}\ %{$reset_color%}"
 
 # right prompt: vi mode
-function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
+# function zle-line-init zle-keymap-select {
+#     RPS1="${${KEYMAP/vicmd/[N]}/(main|viins)/[I]}"
+#     zle reset-prompt
+# }
+# zle -N zle-line-init
+# zle -N zle-keymap-select
 
 # git settings
 ZSH_THEME_GIT_PROMPT_PREFIX=" ${FG[056]}(${FG[028]}"

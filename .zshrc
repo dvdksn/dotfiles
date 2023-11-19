@@ -147,3 +147,9 @@ setopt transientrprompt
 
 # disable docker cli hints
 export DOCKER_CLI_HINTS=false
+
+# create asciinema recording with nice defaults
+alias rec="asciinema rec --cols=80 --rows=25"
+
+# ocaml
+eval $(opam env)

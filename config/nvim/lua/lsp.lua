@@ -49,18 +49,26 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  vale_ls = {},
   gopls = {},
-  pyright = {},
-  tsserver = {},
-  marksman = {},
   html = {},
   jsonls = {},
-  tailwindcss = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
+    },
+  },
+  marksman = {},
+  ocamllsp = {},
+  pyright = {},
+  tailwindcss = {},
+  tsserver = {},
+  vale_ls = {},
+  yamlls = {
+    yaml = {
+      schemas = {
+        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+      },
     },
   },
 }
@@ -84,7 +92,7 @@ local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
     -- null_ls.builtins.formatting.mdformat,
-    -- null_ls.builtins.diagnostics.markdownlint,
+    null_ls.builtins.diagnostics.markdownlint,
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.black,
   },
