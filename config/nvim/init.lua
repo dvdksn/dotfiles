@@ -302,6 +302,16 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 vim.keymap.set('n', '<leader>b', ":NvimTreeToggle<CR>", { desc = 'Toggle filetree' })
 
 -- [[ Configure Treesitter ]]
+-- Go template support
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.gotmpl = {
+  install_info = {
+    url = "https://github.com/ngalaiko/tree-sitter-go-template",
+    files = {"src/parser.c"},
+  },
+  filetype = "gotmpl",
+  used_by = {"gohtml", "gotext", "gotmpl", "gohtmltmpl", "gotexttmpl"}
+}
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
