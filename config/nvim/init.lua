@@ -321,6 +321,8 @@ require('nvim-treesitter.configs').setup {
     'css',
     'dockerfile',
     'go',
+    'gomod',
+    'gosum',
     'json',
     'lua',
     'markdown',
