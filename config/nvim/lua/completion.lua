@@ -1,8 +1,6 @@
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
----@diagnostic disable missing-fields
-
 cmp.setup {
   preselect = cmp.PreselectMode.None,
   snippet = {
