@@ -93,6 +93,8 @@ case "$(uname -s)" in
   Darwin*)
     export BROWSER="open -a /Applications/Firefox\ Developer\ Edition.app/ -g"
     eval "$(/opt/homebrew/bin/brew shellenv)"
+    export PATH="$HOMEBREW_PREFIX/opt/gawk/libexec/gnubin:$PATH"
+    export PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:$PATH"
     ;;
   Linux*)
     export BROWSER=/usr/bin/firefox-developer-edition
