@@ -51,7 +51,7 @@ require("nvim-tree").setup({
     special_files = { "docker-bake.hcl", "Dockerfile", "Makefile", "Taskfile" }
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
   },
   update_focused_file = {
     enable = true,

@@ -9,17 +9,42 @@
 	enabled = true
 [rebase]
 	autoSquash = true
+	autoStash = true
 [alias]
 	last = log -1 HEAD
-	amend = commit --amend
-	fu = commit --all --fixup
+	; fu = "!f() { TARGET=$(git rev-parse "$1"); git commit -m 'fixup! ${TARGET}' }; f"
+	fu = "!f() { TARGET=$(git rev-parse $1); git commit -m 'fixup! ${TARGET}' ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
 	# print default branch
 	default = !git branch -rl '*/HEAD' | awk -F/ '{print $NF}'
 	# log commits on current branch
 	blog = !git default | xargs git cherry -v
 	# count commits on current branch
 	cc = !git rev-list --count HEAD "^$(git default)"
-	# rebase commits on current branch
-	rib = !git rebase -i "HEAD~$(git cc)"
+	# rebase interactive
+	rbi = !git rebase -i
+	# rebase interactive commits on current branch
+	rbb = !git rebase -i "HEAD~$(git cc)"
+	# rebase on default branch
+	rbm = !git rebase "$(git default)"
+	# force push
+	pf = push --force
+	# cherry-pick
+	cp = cherry-pick -s -x
+	# commit all, amend, no-edit, sign-off
+	can = commit --all --amend --no-edit --signoff
+	# commit all, sign-off
+	ca = commit --all --signoff
+	# commit, sign-off
+	c = commit --signoff
+	# pull upstream, current branch
+	lu = !git pull upstream "$(git rev-parse --abbrev-ref HEAD)"
+	# checkout
+	co = checkout
+	# checkout new branch
+	cb = checkout -b
+	# checkout default branch
+	cm = !git checkout "$(git default)"
+	# status
+	st = status --short
 [pull]
 	ff = only

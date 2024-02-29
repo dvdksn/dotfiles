@@ -25,12 +25,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   -- colorscheme
   {
-    "Mofiqul/adwaita.nvim",
+    "bluz71/vim-moonfly-colors",
+    name = "moonfly",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.g.adwaita_darker = true -- for darker version
-      vim.cmd('colorscheme adwaita')
+      vim.cmd('colorscheme moonfly')
     end
   },
 
@@ -115,20 +115,6 @@ require("lazy").setup({
   {
     'nvim-tree/nvim-tree.lua',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-    end
-  },
-
-  -- Editing
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end
   },
 
   -- lsp outline
@@ -143,6 +129,15 @@ require("lazy").setup({
       -- Your setup opts here
     },
   },
+
+  -- devcontainer
+  {
+    'https://codeberg.org/esensar/nvim-dev-container',
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    config = function()
+      require("devcontainer").setup {}
+    end
+  }
 })
 
 -- [[ Setting options ]]
@@ -151,8 +146,9 @@ require("lazy").setup({
 -- Set highlight on search
 vim.o.hlsearch = false
 
--- Make line numbers default
+-- Show line numbers and relative numbers by default
 vim.wo.number = true
+vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -239,7 +235,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'adwaita',
+    theme = 'moonfly',
     component_separators = '|',
     section_separators = '',
   },
@@ -307,16 +303,15 @@ local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.gotmpl = {
   install_info = {
     url = "https://github.com/ngalaiko/tree-sitter-go-template",
-    files = {"src/parser.c"},
+    files = { "src/parser.c" },
   },
   filetype = "gotmpl",
-  used_by = {"gohtml", "gotext", "gotmpl", "gohtmltmpl", "gotexttmpl"}
+  used_by = { "gohtml", "gotext", "gotmpl", "gohtmltmpl", "gotexttmpl" }
 }
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = {
-    'astro',
     'awk',
     'bash',
     'css',
@@ -324,20 +319,19 @@ require('nvim-treesitter.configs').setup {
     'go',
     'gomod',
     'gosum',
+    'hcl',
     'json',
+    'jsonc',
     'lua',
     'markdown',
     'markdown_inline',
     'python',
     'toml',
-    'tsx',
-    'typescript',
     'vim',
     'vimdoc',
     'yaml',
     'query'
   },
-
   highlight = { enable = true },
   indent = {
     enable = false,

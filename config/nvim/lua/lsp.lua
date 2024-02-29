@@ -62,18 +62,13 @@ local servers = {
     },
   },
   marksman = {},
-  ocamllsp = {},
   pyright = {},
   tailwindcss = {},
   tsserver = {},
-  vale_ls = {},
-  yamlls = {
-    yaml = {
-      schemas = {
-        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-      },
-    },
+  vale_ls = {
+    installVale = false,
   },
+  yamlls = {},
 }
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers

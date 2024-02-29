@@ -1,18 +1,9 @@
 vim.filetype.add({
   extension = {
     gotmpl = 'gotmpl',
-    -- bar = function(path, bufnr)
-    --   if some_condition() then
-    --     return 'barscript', function(bufnr)
-    --       -- Set a buffer variable
-    --       vim.b[bufnr].barscript_version = 2
-    --     end
-    --   end
-    --   return 'bar'
-    -- end,
   },
   -- filename = {
-  --   ['.foorc'] = 'toml',
+  --   ['.ini'] = 'toml',
   --   ['/etc/foo/config'] = 'toml',
   -- },
   -- pattern = {

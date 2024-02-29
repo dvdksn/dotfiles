@@ -2,5 +2,4 @@
 stdin = yes
 idle_time_limit = 2
 add_marker_key = C-x
-cols = 80
-rows = 35
+command = $SHELL -l
