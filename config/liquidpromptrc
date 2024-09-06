@@ -1,0 +1,8 @@
+LP_PATH_KEEP=0
+LP_PATH_LENGTH=0
+LP_PATH_METHOD=truncate_chars_to_unique_dir
+
+LP_ENABLE_TEMP=false
+LP_MARK_BATTERY="󰂄"
+LP_MARK_ADAPTER="󰚥"
+LP_ENABLE_LOAD=false

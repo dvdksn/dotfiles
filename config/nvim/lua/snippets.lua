@@ -1,57 +1,19 @@
 local luasnip = require 'luasnip'
 
 local s = luasnip.snippet
-local sn = luasnip.snippet_node
-local isn = luasnip.indent_snippet_node
 local t = luasnip.text_node
 local i = luasnip.insert_node
-local f = luasnip.function_node
-local c = luasnip.choice_node
-local d = luasnip.dynamic_node
-local r = luasnip.restore_node
-local events = require("luasnip.util.events")
-local ai = require("luasnip.nodes.absolute_indexer")
-local extras = require("luasnip.extras")
-local l = require("luasnip.extras").lambda
-local rep = require("luasnip.extras").rep
-local p = require("luasnip.extras").partial
-local m = require("luasnip.extras").match
-local n = require("luasnip.extras").nonempty
-local dl = require("luasnip.extras").dynamic_lambda
-local fmt = require("luasnip.extras.fmt").fmt
-local fmta = require("luasnip.extras.fmt").fmta
-local conds = require("luasnip.extras.expand_conditions")
-local postfix = require("luasnip.extras.postfix").postfix
-local types = require("luasnip.util.types")
-local parse = require("luasnip.util.parser").parse_snippet
+-- TODO: use fmt for more readable snippets
+--       (or fmta which uses <> as delim)
+-- local fmt = require("luasnip.extras.fmt").fmt
+-- local fmta = require("luasnip.extras.fmt").fmta
 
 -- Next choice
-vim.keymap.set({"i", "s"}, "<C-s>", function()
+vim.keymap.set({ "i", "s" }, "<C-s>", function()
   if luasnip.choice_active() then
     luasnip.change_choice(1)
   end
 end, { silent = true })
-
--- local function feedchar(key)
---   local escaped = vim.api.nvim_replace_termcodes(key, true, false, true)
---   vim.api.nvim_feedkeys(escaped, "n", false)
--- end
---
--- vim.keymap.set({"i", "s"}, "<Tab>", function()
---   if luasnip.jumpable(1) then
---     luasnip.jump(1)
---   else
---     feedchar("<Tab>")
---   end
--- end)
---
--- vim.keymap.set({"i", "s"}, "<S-Tab>", function()
---   if luasnip.jumpable(-1) then
---     luasnip.jump(-1)
---   else
---     feedchar("<Tab>")
---   end
--- end)
 
 luasnip.add_snippets("markdown", {
   s({
@@ -83,7 +45,7 @@ luasnip.add_snippets("markdown", {
     t(")"),
   }),
   s({
-    trig = "image",
+    trig = "img",
     name = "Create a new image",
     dscr = "Creates a new Markdown image.",
     docstring = '![alt text](/path/to/image.png)',
@@ -95,30 +57,14 @@ luasnip.add_snippets("markdown", {
     t(")"),
   }),
   s({
-    trig = "raw",
-    name = "Raw section (start)",
-    dscr = "Creates an opening raw tag.",
-    docstring = '{% raw %}',
-  }, {
-    t("{% raw %}"),
-  }),
-  s({
-    trig = "endraw",
-    name = "Raw section (end)",
-    dscr = "Creates an closing raw tag.",
-    docstring = '{% endraw %}',
-  }, {
-    t("{% endraw %}"),
-  }),
-  s({
     trig = "tabs",
     name = "Tab group",
     dscr = "Creates an empty tab group.",
     docstring = '{{< tabs >}}{{< /tabs >}}',
   }, {
-      t({"{{< tabs >}}", ""}),
-      i(0),
-      t({"", "{{< /tabs >}}"}),
+    t({ "{{< tabs >}}", "" }),
+    i(0),
+    t({ "", "{{< /tabs >}}" }),
   }),
   s({
     trig = "tab",
@@ -126,11 +72,10 @@ luasnip.add_snippets("markdown", {
     dscr = "Creates a single tab.",
     docstring = '{{< tab name="" >}}\n{{< /tab >}}',
   }, {
-      t("{{< tab name=\""),
-      i(1),
-      t({"\" >}}"}),
-      i(0),
-      t({"", "{{< /tab >}}"}),
+    t("{{< tab name=\""),
+    i(1),
+    t({ "\" >}}" }),
+    i(0),
+    t({ "", "{{< /tab >}}" }),
   }),
-
 })

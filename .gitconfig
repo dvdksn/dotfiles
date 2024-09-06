@@ -12,8 +12,6 @@
 	autoStash = true
 [alias]
 	last = log -1 HEAD
-	; fu = "!f() { TARGET=$(git rev-parse "$1"); git commit -m 'fixup! ${TARGET}' }; f"
-	fu = "!f() { TARGET=$(git rev-parse $1); git commit -m 'fixup! ${TARGET}' ${@:2} && EDITOR=true git rebase -i --autostash --autosquash $TARGET^; }; f"
 	# print default branch
 	default = !git branch -rl '*/HEAD' | awk -F/ '{print $NF}'
 	# log commits on current branch

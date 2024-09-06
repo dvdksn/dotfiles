@@ -1,5 +1,0 @@
-[record]
-stdin = yes
-idle_time_limit = 2
-add_marker_key = C-x
-command = $SHELL -l

@@ -1,0 +1,114 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "height": 13,
+    "modules-left": [
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/layout",
+        "network",
+        "bluetooth",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "battery"
+    ],
+    "hyprland/window": {
+        "format": "{}",
+        "icon": true
+    },
+    "clock": {
+        "interval": 60,
+        "tooltip": true,
+        "format": "{:%H:%M}",
+        "tooltip-format": "{:%Y-%m-%d}"
+    },
+    "custom/layout": {
+        "exec": "~/.config/waybar/custom/kbd_layout",
+        "interval": "once",
+        "return-type": "json",
+        "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+        "tooltip": true,
+        "format": "{}"
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": " ",
+        "format-ethernet": "{ipaddr}/{cidr}",
+        "tooltip-format": "Strength: {signalStrength}%\nSSID: {essid}\n{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}"
+    },
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "", // an empty format will hide the module
+        "format-connected": " {num_connections}",
+        "tooltip-format": "{device_alias}",
+        "tooltip-format-connected": " {device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}"
+    },
+    "pulseaudio": {
+        "format": "{icon}",
+        "tooltip": true,
+        "tooltip-format": "Volume: {volume}%",
+        "format-muted": "  Muted",
+        "on-click": "pamixer -t",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        }
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "tooltip": true,
+        "tooltip-format": "Microphone: {volume}%",
+        "format-source": "",
+        "format-source-muted": "  Muted",
+        "on-click": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "scroll-step": 5
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-alt": "{time}  {icon}",
+        "format-icons": [
+            "󰂎",
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ]
+    }
+}
