@@ -1,6 +1,3 @@
 # Welcome to my dotfiles
 
-This is my config for neovim and kitty terminal.
-
-WIP (always)
-
+My config for arch, hyprland, kitty, neovim, etc.
