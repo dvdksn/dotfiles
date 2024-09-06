@@ -3,6 +3,8 @@ local luasnip = require 'luasnip'
 local s = luasnip.snippet
 local t = luasnip.text_node
 local i = luasnip.insert_node
+local sn = luasnip.snippet_node
+local c = luasnip.choice_node
 -- TODO: use fmt for more readable snippets
 --       (or fmta which uses <> as delim)
 -- local fmt = require("luasnip.extras.fmt").fmt
@@ -77,5 +79,43 @@ luasnip.add_snippets("markdown", {
     t({ "\" >}}" }),
     i(0),
     t({ "", "{{< /tab >}}" }),
+  }),
+  s({
+    trig = "experimental",
+    name = "Experimental callout",
+    dscr = "Creates an experimental callout",
+    docstring = '{{% experimental %}}',
+  }, {
+    t("{{% experimental "),
+    c(1, {
+      sn(nil, {
+        t("title=\""),
+        i(1),
+        t("\" "),
+      }),
+      t(nil),
+    }),
+    t({ "%}}", "" }),
+    i(0),
+    t({ "", "{{% /experimental %}}" }),
+  }),
+  s({
+    trig = "restricted",
+    name = "Restricted callout",
+    dscr = "Creates an restricted callout",
+    docstring = '{{% restricted %}}',
+  }, {
+    t("{{% restricted "),
+    c(1, {
+      sn(nil, {
+        t("title=\""),
+        i(1),
+        t("\" "),
+      }),
+      t(nil),
+    }),
+    t({ "%}}", "" }),
+    i(0),
+    t({ "", "{{% /restricted %}}" }),
   }),
 })
