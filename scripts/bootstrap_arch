@@ -55,6 +55,8 @@ if [[ $HYPR == "Y" || $HYPR == "y" ]]; then
     lxappearance \ # used to set GTK theme
     xfce4-settings \ # set of tools for xfce, needed to set GTK theme
     xdg-desktop-portal-hyprland \ # xdg-desktop-portal backend for hyprland
+    zathura \ # minimal document viewer with vim bindings
+    zathura-pdf-mupdf # PDF/ePub plugin
 
     # Start the bluetooth service
     echo -e "Starting the Bluetooth Service...\n"
@@ -69,7 +71,7 @@ fi
 ### Symlink configuration files ###
 read -n1 -rep 'Would you like to use the config files? (y,n)' CFG
 if [[ $CFG == "Y" || $CFG == "y" ]]; then
-    echo -e "Copying config files...\n"
+    echo -e "Symlinking config files...\n"
     ln -s $(pwd)/config/hypr ~/.config/
     ln -s $(pwd)/config/nvim ~/.config/
     ln -s $(pwd)/config/kitty ~/.config/
@@ -93,7 +95,8 @@ if [[ $LIQUID == "Y" || $LIQUID == "y" ]]; then
     echo -e "Updating .bashrc...\n"
     echo -e '\n[[ $- = *i* ]] && source ~/.liquidprompt/liquidprompt' >> ~/.bashrc
     echo -e "copying liquidprompt config file to ~/.config ...\n"
-    cp config/liquidpromptrc ~/.config/liquidpromptrc
+    ln -s $(pwd)/config/liquidpromptrc ~/.config/liquidpromptrc
+    yay -S --no-confirm acpi # for battery/power indicator in prompt
 fi
 
 ### Script is done ###
