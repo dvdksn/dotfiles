@@ -1,0 +1,31 @@
+# Zathura configuration file
+# See man `man zathurarc'
+
+# Open document in fit-width mode by default
+set window-width 1920
+set adjust-open width
+
+# One page per row by default
+set pages-per-row 1
+
+set zoom-min 10
+set guioptions ""
+
+set font "JetBrainsMono NF Regular 15"
+set default-bg "#000000" #00
+set default-fg "#F7F7F6" #01
+
+set recolor "true"
+set recolor-lightcolor "#000000" #00
+set recolor-darkcolor "#E0E0E0" #06
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+set render-loading "false"
+set scroll-step 50
+
+# unmap f
+# map f toggle_fullscreen
+# map [fullscreen] f toggle_fullscreen
+map <C-i> zoom in
+map <C-o> zoom out
