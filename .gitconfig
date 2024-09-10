@@ -18,8 +18,10 @@
 	blog = !git default | xargs git cherry -v
 	# count commits on current branch
 	cc = !git rev-list --count HEAD "^$(git default)"
+	# resume rebase
+	rbc = rebase --continue
 	# rebase interactive
-	rbi = !git rebase -i
+	rbi = rebase --interactive
 	# rebase interactive commits on current branch
 	rbb = !git rebase -i "HEAD~$(git cc)"
 	# rebase on default branch
@@ -40,6 +42,8 @@
 	co = checkout
 	# checkout new branch
 	cb = checkout -b
+	# rename branch
+	bm = branch -m
 	# checkout default branch
 	cm = !git checkout "$(git default)"
 	# status
