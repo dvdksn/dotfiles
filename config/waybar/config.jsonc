@@ -19,6 +19,7 @@
         "battery"
     ],
     "hyprland/window": {
+        "max-length": 64,
         "format": "{}",
         "icon": true
     },
