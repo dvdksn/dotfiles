@@ -16,7 +16,7 @@ local servers = {
   marksman = {},
   pyright = {},
   tailwindcss = {},
-  tsserver = {},
+  ts_ls = {},
   vale_ls = {
     installVale = false,
   },
@@ -79,10 +79,6 @@ return {
       -- Enable servers
       mason_lspconfig.setup_handlers {
         function(server_name)
-          -- tsserver was renamed and it broke things in mason, I guess
-          if server_name == "tsserver" then
-            server_name = "ts_ls"
-          end
           require('lspconfig')[server_name].setup {
             capabilities = capabilities,
             on_attach = on_attach,
