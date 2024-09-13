@@ -32,5 +32,5 @@ require("lazy").setup({
     missing = true,
   },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = { enabled = false },
 })
