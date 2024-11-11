@@ -3,6 +3,7 @@ local servers = {
   gopls = {},
   html = {},
   jsonls = {},
+  dockerls = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -66,9 +67,9 @@ return {
       -- Setup mason so it can manage external tooling
       require('mason').setup()
 
-      -- Ensure the servers above are installed
       local mason_lspconfig = require 'mason-lspconfig'
 
+      -- Ensure the servers above are installed
       mason_lspconfig.setup {
         ensure_installed = vim.tbl_keys(servers),
       }
