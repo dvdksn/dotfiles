@@ -15,7 +15,9 @@
 	# print default branch
 	default = !git branch -rl '*/HEAD' | awk -F/ '{print $NF}'
 	# log commits on current branch
-	blog = !git default | xargs git cherry -v
+	l = !git default | xargs git cherry -v
+	# interactive fixup
+	fixup = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
 	# count commits on current branch
 	cc = !git rev-list --count HEAD "^$(git default)"
 	# resume rebase
@@ -44,9 +46,19 @@
 	cb = checkout -b
 	# rename branch
 	bm = branch -m
+	# delete branch
+	bd = branch -D
+	# delete all branches that were deleted on remote
+	prune-branches = !git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
 	# checkout default branch
 	cm = !git checkout "$(git default)"
 	# status
 	st = status --short
+	# fetch
+	f = fetch
+	# word diff
+	wd = diff --word-diff
 [pull]
 	ff = only
+[init]
+	defaultBranch = main
