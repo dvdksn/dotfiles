@@ -1,64 +1,27 @@
 return {
-	-- Autocompletion
-	'hrsh7th/nvim-cmp',
-	dependencies = {
-		'hrsh7th/cmp-nvim-lsp',
-		'hrsh7th/cmp-nvim-lsp-signature-help',
-		'hrsh7th/cmp-buffer',
-		'hrsh7th/cmp-path',
-		'L3MON4D3/LuaSnip',
-		'saadparwaiz1/cmp_luasnip'
+	'saghen/blink.cmp',
+	-- use a release tag to download pre-built binaries
+	version = '1.*',
+	-- optional: provides snippets for the snippet source
+	dependencies = { 'rafamadriz/friendly-snippets' },
+	opts = {
+		-- ensure you have the `snippets` source (enabled by default)
+		sources = {
+			default = { 'lsp', 'path', 'snippets', 'buffer' },
+		},
+		-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+		-- 'super-tab' for mappings similar to vscode (tab to accept)
+		-- 'enter' for enter to accept
+		-- 'none' for no mappings
+		keymap = {
+			preset = 'enter',
+		},
+		-- (Default) Only show the documentation popup when manually triggered
+		completion = { documentation = { auto_show = true } },
+		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+		-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+		fuzzy = { implementation = "prefer_rust_with_warning" }
 	},
-	config = function()
-		local cmp = require('cmp')
-		local luasnip = require('luasnip')
-		cmp.setup {
-			preselect = cmp.PreselectMode.None,
-			snippet = {
-				expand = function(args)
-					luasnip.lsp_expand(args.body)
-				end,
-			},
-			mapping = {
-				['<C-e>'] = cmp.mapping.abort(),
-				['<C-Space>'] = cmp.mapping.complete(),
-				["<CR>"] = cmp.mapping({
-					i = function(fallback)
-						if cmp.visible() and cmp.get_active_entry() then
-							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-						else
-							fallback()
-						end
-					end,
-					s = cmp.mapping.confirm({ select = true }),
-					c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-				}),
-				['<Tab>'] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-					elseif luasnip.expand_or_locally_jumpable() then
-						luasnip.expand_or_jump()
-					else
-						fallback()
-					end
-				end, { 'i', 's' }),
-				['<S-Tab>'] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-					elseif luasnip.locally_jumpable(-1) then
-						luasnip.jump(-1)
-					else
-						fallback()
-					end
-				end, { 'i', 's' }),
-			},
-			sources = {
-				{ name = 'nvim_lsp' },
-				{ name = 'path' },
-				{ name = 'luasnip' },
-				{ name = 'buffer' },
-				{ name = 'nvim_lsp_signature_help' },
-			},
-		}
-	end
+	opts_extend = { "sources.default" }
 }

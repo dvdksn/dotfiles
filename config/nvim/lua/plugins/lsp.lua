@@ -53,7 +53,6 @@ return {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
       "neovim/nvim-lspconfig",
-      "hrsh7th/cmp-nvim-lsp",
     },
     opts = {
       ensure_installed = vim.tbl_keys(servers),
@@ -62,12 +61,9 @@ return {
     config = function(_, opts)
       require("mason-lspconfig").setup(opts)
 
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
       -- global defaults
       vim.lsp.config("*", {
         on_attach = on_attach,
-        capabilities = capabilities,
       })
 
       -- per-server settings
