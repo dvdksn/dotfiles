@@ -1,22 +1,24 @@
 return {
 	'nvim-telescope/telescope.nvim',
 	dependencies = { 'nvim-lua/plenary.nvim' },
-	opts = {
-		defaults = {
-			mappings = {
-				i = {
-					-- scroll preview window
-					['<C-u>'] = require('telescope.actions').preview_scrolling_up,
-					['<C-d>'] = require('telescope.actions').preview_scrolling_down,
+	opts = function()
+		local actions = require('telescope.actions')
+
+		return {
+			defaults = {
+				mappings = {
+					i = {
+						-- scroll preview window
+						['<C-u>'] = actions.preview_scrolling_up,
+						['<C-d>'] = actions.preview_scrolling_down,
+					},
 				},
 			},
-		},
-		extensions = {
-			file_browser = {
-				path = "%:p:h",
+			extensions = {
+				file_browser = {
+					path = "%:p:h",
+				},
 			},
-		},
-	},
-	config = function()
+		}
 	end
 }
