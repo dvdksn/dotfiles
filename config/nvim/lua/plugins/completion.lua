@@ -16,12 +16,21 @@ return {
 		keymap = {
 			preset = 'enter',
 		},
-		-- (Default) Only show the documentation popup when manually triggered
-		completion = { documentation = { auto_show = true } },
+		completion = {
+			documentation = { auto_show = true },
+			ghost_text = { enabled = true },
+			-- Don't select by default, auto-insert on selection
+			list = {
+				selection = {
+					preselect = false,
+					auto_insert = false,
+				}
+			},
+		},
 		-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
 		-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
 		-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
-		fuzzy = { implementation = "prefer_rust_with_warning" }
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 	},
 	opts_extend = { "sources.default" }
 }

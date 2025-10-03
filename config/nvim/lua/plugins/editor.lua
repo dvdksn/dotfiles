@@ -1,19 +1,7 @@
 return {
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 	'numToStr/Comment.nvim',
-	'tpope/vim-sleuth',
-	{
-		'lewis6991/gitsigns.nvim',
-		opts = {
-			signs = {
-				add = { text = '+' },
-				change = { text = '~' },
-				delete = { text = '_' },
-				topdelete = { text = '‾' },
-				changedelete = { text = '~' },
-			},
-		}
-	},
+	'lewis6991/gitsigns.nvim',
 	{
 		"hedyhli/outline.nvim",
 		lazy = true,

@@ -1,8 +1,12 @@
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
--- Set highlight on search
+-- Search/substitute
 vim.o.hlsearch = false
+vim.o.inccommand = "split"
+-- Case insensitive searching UNLESS /C or capital in query
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 -- Show line numbers and relative numbers by default
 vim.wo.number = true
@@ -11,19 +15,9 @@ vim.wo.relativenumber = true
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
+-- File history
 vim.o.undofile = true
-
--- Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+vim.o.swapfile = false
 
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
@@ -31,15 +25,14 @@ vim.wo.signcolumn = 'yes'
 -- Set window scroll padding
 vim.o.scrolloff = 5
 
--- Disable line wrapping
-vim.o.wrap = false
-
--- Colors & styles
-vim.o.termguicolors = true
+-- Line wrapping
+vim.o.wrap = true
+vim.o.linebreak = true
 vim.o.colorcolumn = "80"
+vim.o.more = false
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menu,menuone,noselect'
+vim.o.completeopt = "menu,menuone,noselect"
 
 -- Indentation
 vim.o.tabstop = 4
