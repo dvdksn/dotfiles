@@ -54,15 +54,11 @@ return {
 				settings = {
 					yaml = {
 						schemas = {
-							["https://raw.githubusercontent.com/docker/docker-agent/refs/heads/main/agent-schema.json"] = {
-								"**/cagent*.yaml",
-								"**/cagent*.yml",
-								"**/*cagent*.yaml",
-								"**/*cagent*.yml",
-								"**/agent.yaml",
-								"**/agent.yml",
-								"**/agents.yaml",
-								"**/agents.yml",
+							["https://raw.githubusercontent.com/docker/sandbox-kit-spec/refs/heads/main/schema/kit.schema.json"] = {
+								"**/kit/**.yaml",
+								"**/kit/**.yml",
+								"**/kits/**.yaml",
+								"**/kits/**.yml",
 							},
 						},
 					},
